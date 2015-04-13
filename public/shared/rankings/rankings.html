@@ -1,0 +1,27 @@
+<table class="table table-striped table-hover">
+  <caption>Rankings</caption>
+  <thead>
+    <tr>
+      <td class="col-xs-2">#</td>
+      <td class="col-xs-2">Team</td>
+      <td class="col-xs-2">Avg</td>
+      <td class="col-xs-2">Auto</td>
+      <td class="col-xs-2">Totes</td>
+      <td class="col-xs-2">Caps</td>
+      <td class="col-xs-2">Litter</td>
+      <td class="col-xs-2">Coop</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
+      <td class="col-xs-2">{{$index}}</td>
+      <td class="col-xs-2">{{teamStats.teamId}}</td>
+      <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
+      <td class="col-xs-2">{{teamStats.totalAuto}}</td>
+      <td class="col-xs-2">{{teamStats.totalTotes}}</td>
+      <td class="col-xs-2">{{teamStats.totalCaps}}</td>
+      <td class="col-xs-2">{{teamStats.totalLitter}}</td>
+      <td class="col-xs-2">{{teamStats.totalCoop}}</td>
+    </tr>
+  </tbody>
+</table>

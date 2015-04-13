@@ -1,0 +1,28 @@
+<table class="table table-striped table-hover">
+  <caption>Team Listing</caption>
+  <thead>
+    <tr>
+      <td class="col-xs-2">#</td>
+      <td class="col-xs-4">Name</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="team in teamList |orderBy: 'teamId'" ng-click="(editTeamId == team.teamId ? editTeamId = 'none' : TeamListingCtrl.viewTeam(team.teamId))" ng-right-click="editTeamId = (editTeamId == team.teamId ? 'none' : team.teamId)" ng-swipe-left="editTeamId = team.teamId" 
+      ng-swipe-right="editTeamId = 'none'">
+      <td class="col-xs-2">{{team.teamId}}</td>
+      <td class="col-xs-4">{{team.teamName}}</td>
+      <td class="col-xs-4">
+        <button ng-show="editTeamId == team.teamId" type="button" class="btn btn-warning" ng-click="TeamListingCtrl.modifyTeam(team.teamId)">
+          Modify
+        </button>
+        <button ng-show="editTeamId == team.teamId" type="button" class="btn btn-danger" ng-click="TeamListingCtrl.deleteTeam(team.teamId)">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button type="button" class="btn btn-primary" ng-click="TeamListingCtrl.addTeam()">
+  Add Team
+</button>

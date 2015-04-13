@@ -1,0 +1,17 @@
+<table class="table table-striped table-hover">
+  <caption>Matches</caption>
+  <thead>
+    <tr ng-repeat="alliance in matches[0].alliances">
+      <td ng-show="$index == 0" class="col-xs-2" rowspan="{{matches[0].alliances.length}}">#</td>
+      <td class="col-xs-2" ng-repeat="team in alliance.teams">{{alliance.name}} {{$index + 1}}</td>
+      <td class="col-xs-2">Score</td>
+    </tr>
+  </thead>
+  <tbody ng-repeat="match in matches">
+    <tr ng-repeat="alliance in match.alliances">
+      <td ng-show="$index == 0" class="col-xs-2" rowspan="{{match.alliances.length}}">{{match.id}}</td>
+      <td class="col-xs-2" ng-repeat="team in alliance.teams">{{team}}</td>
+      <td class="col-xs-2">{{alliance.score}}</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,225 @@
+<div class="container-fluid">
+  <div class="row">
+    <h3 class="col-xs-6 col-med-4 col-lg-2">Team {{teamNumber}}</h3>
+    <button type="button" class="btn btn-primary col-xs-offset-1 col-md-offset-3 col-lg-offset-8 col-xs-4 col-md-2 col-lg-1">
+      Add Match
+    </button>
+  </div>
+  
+  <div class="row">
+    <table class="table table-striped table-hover">
+      <caption>Overall</caption>
+      <thead>
+        <tr>
+          <td class="col-xs-2">Avg</td>
+          <td class="col-xs-2">Auto</td>
+          <td class="col-xs-2">Totes</td>
+          <td class="col-xs-2">Caps</td>
+          <td class="col-xs-2">Litter</td>
+          <td class="col-xs-2">Coop</td>
+        </tr>
+      </thead>
+      <tbody>
+    <!--
+        <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
+          <td class="col-xs-2">{{$index}}</td>
+          <td class="col-xs-2">{{teamStats.teamId}}</td>
+          <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
+          <td class="col-xs-2">{{teamStats.totalAuto}}</td>
+          <td class="col-xs-2">{{teamStats.totalTotes}}</td>
+          <td class="col-xs-2">{{teamStats.totalCaps}}</td>
+          <td class="col-xs-2">{{teamStats.totalLitter}}</td>
+          <td class="col-xs-2">{{teamStats.totalCoop}}</td>
+        </tr>
+    -->
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="row">
+    <tabset>
+      <tab heading="Auto">
+        <table class="table table-striped table-hover">
+          <caption>Autonomous</caption>
+          <thead>
+            <tr>
+              <td class="col-xs-2"># Tote Sets</td>
+              <td class="col-xs-2"># Cans</td>
+              <td class="col-xs-2"># Totes</td>
+              <td class="col-xs-2">Bot in Zone</td>
+              <td class="col-xs-2">Problematic</td>
+            </tr>
+          </thead>
+          <tbody>
+        <!--
+            <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
+              <td class="col-xs-2">{{$index}}</td>
+              <td class="col-xs-2">{{teamStats.teamId}}</td>
+              <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
+              <td class="col-xs-2">{{teamStats.totalAuto}}</td>
+              <td class="col-xs-2">{{teamStats.totalTotes}}</td>
+              <td class="col-xs-2">{{teamStats.totalCaps}}</td>
+              <td class="col-xs-2">{{teamStats.totalLitter}}</td>
+              <td class="col-xs-2">{{teamStats.totalCoop}}</td>
+            </tr>
+        -->
+          </tbody>
+        </table>
+        
+      </tab>
+      <tab heading="Stacking">
+        <table class="table table-striped table-hover">
+          <caption>Stacking Averages Per Match</caption>
+          <thead>
+            <tr>
+              <td class="col-xs-2"># Stacks</td>
+              <td class="col-xs-2">Stack Height</td>
+              <td class="col-xs-2">Max Height</td>
+              <td class="col-xs-2"># HP</td>
+              <td class="col-xs-2"># LF</td>
+            </tr>
+          </thead>
+          <tbody>
+        <!--
+            <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
+              <td class="col-xs-2">{{$index}}</td>
+              <td class="col-xs-2">{{teamStats.teamId}}</td>
+              <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
+              <td class="col-xs-2">{{teamStats.totalAuto}}</td>
+              <td class="col-xs-2">{{teamStats.totalTotes}}</td>
+              <td class="col-xs-2">{{teamStats.totalCaps}}</td>
+              <td class="col-xs-2">{{teamStats.totalLitter}}</td>
+              <td class="col-xs-2">{{teamStats.totalCoop}}</td>
+            </tr>
+        -->
+          </tbody>
+        </table>
+        
+      </tab>
+      <tab heading="Cap">
+        <table class="table table-striped table-hover">
+          <caption>Capping Averages Per Match</caption>
+          <thead>
+            <tr>
+              <td class="col-xs-2"># Caps</td>
+              <td class="col-xs-2">Cap Height</td>
+              <td class="col-xs-2">Max Cap Height</td>
+              <td class="col-xs-2"># Litter</td>
+            </tr>
+          </thead>
+          <tbody>
+        <!--
+            <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
+              <td class="col-xs-2">{{$index}}</td>
+              <td class="col-xs-2">{{teamStats.teamId}}</td>
+              <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
+              <td class="col-xs-2">{{teamStats.totalAuto}}</td>
+              <td class="col-xs-2">{{teamStats.totalTotes}}</td>
+              <td class="col-xs-2">{{teamStats.totalCaps}}</td>
+              <td class="col-xs-2">{{teamStats.totalLitter}}</td>
+              <td class="col-xs-2">{{teamStats.totalCoop}}</td>
+            </tr>
+        -->
+          </tbody>
+        </table>
+      </tab>
+      <tab heading="Burglar">
+        <table class="table table-striped table-hover">
+          <caption>Burglar Averages Per Match</caption>
+          <thead>
+            <tr>
+              <td class="col-xs-2">Efficiency</td>
+              <td class="col-xs-2"># Cans Attempted</td>
+              <td class="col-xs-2"># Cans Captured</td>
+              <td class="col-xs-2">Auto</td>
+              <td class="col-xs-2">Battle</td>
+            </tr>
+          </thead>
+          <tbody>
+        <!--
+            <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
+              <td class="col-xs-2">{{$index}}</td>
+              <td class="col-xs-2">{{teamStats.teamId}}</td>
+              <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
+              <td class="col-xs-2">{{teamStats.totalAuto}}</td>
+              <td class="col-xs-2">{{teamStats.totalTotes}}</td>
+              <td class="col-xs-2">{{teamStats.totalCaps}}</td>
+              <td class="col-xs-2">{{teamStats.totalLitter}}</td>
+              <td class="col-xs-2">{{teamStats.totalCoop}}</td>
+            </tr>
+        -->
+          </tbody>
+        </table>
+      </tab>
+      <tab heading="Ramp">
+        <table class="table table-striped table-hover">
+          <caption>Ramp Averages Per Match</caption>
+          <thead>
+            <tr>
+              <td class="col-xs-2"># Ramps</td>
+              <td class="col-xs-2"># Cycles</td>
+              <td class="col-xs-2"># Totes/Ramp</td>
+              <td class="col-xs-2">Interferes Auto</td>
+            </tr>
+          </thead>
+          <tbody>
+        <!--
+            <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
+              <td class="col-xs-2">{{$index}}</td>
+              <td class="col-xs-2">{{teamStats.teamId}}</td>
+              <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
+              <td class="col-xs-2">{{teamStats.totalAuto}}</td>
+              <td class="col-xs-2">{{teamStats.totalTotes}}</td>
+              <td class="col-xs-2">{{teamStats.totalCaps}}</td>
+              <td class="col-xs-2">{{teamStats.totalLitter}}</td>
+              <td class="col-xs-2">{{teamStats.totalCoop}}</td>
+            </tr>
+        -->
+          </tbody>
+        </table>
+      </tab>
+    </tabset>
+  </div>
+</div>
+
+<table class="table table-striped table-hover">
+  <caption>Match Results</caption>
+  <thead>
+    <tr>
+      <td class="col-xs-2">#</td>
+      <td class="col-xs-2">Score</td>
+      <td class="col-xs-2">Auto</td>
+      <td class="col-xs-2">Totes</td>
+      <td class="col-xs-2">Caps</td>
+      <td class="col-xs-2">Litter</td>
+      <td class="col-xs-2">Coop</td>
+    </tr>
+  </thead>
+  <tbody>
+<!--
+    <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
+      <td class="col-xs-2">{{$index}}</td>
+      <td class="col-xs-2">{{teamStats.teamId}}</td>
+      <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
+      <td class="col-xs-2">{{teamStats.totalAuto}}</td>
+      <td class="col-xs-2">{{teamStats.totalTotes}}</td>
+      <td class="col-xs-2">{{teamStats.totalCaps}}</td>
+      <td class="col-xs-2">{{teamStats.totalLitter}}</td>
+      <td class="col-xs-2">{{teamStats.totalCoop}}</td>
+    </tr>
+-->
+  </tbody>
+</table>
+
+<!-- custom navbar for options -->
+<!--
+<nav class="navbar navbar-default" role="navigation">
+    <ul class="nav navbar-nav">
+      <li class="active"><a>Overall</a></li>
+      <li><a>Auto</a></li>
+      <li><a>Stack</a></li>
+      <li><a>Cap</a></li>
+      <li><a>Burglar</a></li>
+      <li><a>Ramp</a></li>
+    </ul>
+</nav>-->
