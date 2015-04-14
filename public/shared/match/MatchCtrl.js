@@ -1,5 +1,5 @@
 //Angular Controller for matches
-angular.module('ilite.common').controller('MatchCtrl', ['$scope','Team', function($scope,Team) {
+angular.module('ilite.common').controller('MatchCtrl', ['$scope','Match', function($scope,Match) {
 
   //sample match object for testing...
   var sampleMatch = {};

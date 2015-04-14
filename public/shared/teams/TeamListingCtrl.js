@@ -36,7 +36,7 @@ angular.module('ilite.common').controller('TeamListingCtrl', ['$scope','$locatio
   }
   
   this.addTeam = function() {
-    console.log('Adding team');
+    $location.path("/teams/createTeam");
   }
   
   //allows for more readable html (angular call is <ControllerName>.<function> vs <function>

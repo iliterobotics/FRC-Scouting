@@ -25,9 +25,21 @@ angular.module('ilite.routes').config(function($routeProvider, $locationProvider
     })
   
     // route for the selected team information
+    .when('/teams/createTeam', {
+        templateUrl : 'shared/teams/teamInput.html',
+        controller  : 'TeamInputCtrl'
+    })
+  
+    // route for the selected team information
     .when('/teams/:teamNumber', {
         templateUrl : 'shared/teams/team.html',
         controller  : 'TeamCtrl'
+    })
+  
+    // route for entering match data
+    .when('/teams/:teamNumber/matchInput', {
+        templateUrl : 'shared/match/matchInput.html',
+        controller  : 'MatchInputCtrl'
     });
   
     //TODO: add chairmans

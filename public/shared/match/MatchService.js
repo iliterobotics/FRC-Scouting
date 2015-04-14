@@ -6,7 +6,7 @@
 //    Teams []
 //    Total Score
 
-angular.module('ilite.common').factory('Team', ['$resource', function($resource) {
+angular.module('ilite.common').factory('Match', ['$resource', function($resource) {
 
   //team #
   //team name
