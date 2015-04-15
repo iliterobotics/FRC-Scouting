@@ -7,15 +7,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="team in teamList |orderBy: 'teamId'" ng-click="(editTeamId == team.teamId ? editTeamId = 'none' : TeamListingCtrl.viewTeam(team.teamId))" ng-right-click="editTeamId = (editTeamId == team.teamId ? 'none' : team.teamId)" ng-swipe-left="editTeamId = team.teamId" 
+    <tr ng-repeat="team in teamList |orderBy: 'number' track by team.number" ng-click="(editTeamId == team.number ? editTeamId = 'none' : TeamListingCtrl.viewTeam(team.number))" ng-right-click="editTeamId = (editTeamId == team.number ? 'none' : team.number)" ng-swipe-left="editTeamId = team.number" 
       ng-swipe-right="editTeamId = 'none'">
-      <td class="col-xs-2">{{team.teamId}}</td>
-      <td class="col-xs-4">{{team.teamName}}</td>
+      <td class="col-xs-2">{{team.number}}</td>
+      <td class="col-xs-4">{{team.name}}</td>
       <td class="col-xs-4">
-        <button ng-show="editTeamId == team.teamId" type="button" class="btn btn-warning" ng-click="TeamListingCtrl.modifyTeam(team.teamId)">
+        <button ng-show="editTeamId == team.number" type="button" class="btn btn-warning" ng-click="TeamListingCtrl.modifyTeam(team)">
           Modify
         </button>
-        <button ng-show="editTeamId == team.teamId" type="button" class="btn btn-danger" ng-click="TeamListingCtrl.deleteTeam(team.teamId)">
+        <button ng-show="editTeamId == team.number" type="button" class="btn btn-danger" ng-click="TeamListingCtrl.deleteTeam(team)">
           Delete
         </button>
       </td>

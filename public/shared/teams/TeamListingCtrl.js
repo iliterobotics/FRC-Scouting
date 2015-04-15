@@ -1,23 +1,7 @@
 //Angular Controller for teams listing
 angular.module('ilite.common').controller('TeamListingCtrl', ['$scope','$location','Team', function($scope,$location,Team) {
   
-  //sample for testing
-  var teamInfo = {};
-  teamInfo.teamId = 1885;
-  teamInfo.teamName = 'ILITE Robotics';
-  
-  var teamInfo1 = {};
-  teamInfo1.teamId = 2000;
-  teamInfo1.teamName = 'ILITE Robotics1';
-  
-  var teamInfo2 = {};
-  teamInfo2.teamId = 10;
-  teamInfo2.teamName = 'ILITE Robotics2';
-  
-  $scope.teamList = [];
-  $scope.teamList.push(teamInfo);
-  $scope.teamList.push(teamInfo1);
-  $scope.teamList.push(teamInfo2);
+  $scope.teamList = Team.query();
   
   this.query = function () {
     return Team.query();
@@ -27,12 +11,22 @@ angular.module('ilite.common').controller('TeamListingCtrl', ['$scope','$locatio
     $location.path("/teams/"+teamNumber);
   }
   
-  this.deleteTeam = function(teamNumber) {
-    console.log('deleting team', teamNumber);
+  this.deleteTeam = function(team) {
+    console.log('deleting team', team._id);
+    Team.delete({teamId : team._id }).$promise.then(
+      //success
+      function( value ){
+        $scope.teamList= Team.query();
+      },
+      //error
+      function( error ){
+          alert(error);
+       }
+    );
   }
   
-  this.modifyTeam = function(teamNumber) {
-    console.log('modifying team', teamNumber);
+  this.modifyTeam = function(team) {
+    console.log('modifying team', team);
   }
   
   this.addTeam = function() {
