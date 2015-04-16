@@ -1,25 +1,44 @@
-// grab the nerd model we just created
+// grab the Team model
 var mongoose = require("mongoose");
 var Team = mongoose.model('Team');
+var Match = mongoose.model('Match');
 
 module.exports = function(app) {
 
-  this.saveTeam = function(team, cb) {
-    Team.find({number : team.number}, function (err, docs) {
-        if (docs.length){
-            cb('Team ' + team.number + ' already exists',null);
+  this.saveTeam = function(teamToAdd, cb) {
+    Team.findById(teamToAdd._id, function (err, team) {
+        if (err){
+          cb('Team ' + team._id + ' already exists',null);
         }else{
-            team.save(function(err){
-                cb(err,team);
-            });
+					
+					Match.findByTeam(teamToAdd._id, function(err, matches) {
+
+						if(err) {
+							console.log(err);
+						} else if(matches.length > 0) {
+							console.log(matches);
+						}
+
+						if(matches) {
+							for(var index = 0; index < matches.length; index++) {
+								teamToAdd.matches.push(matches[index]._id);
+							}
+						}
+						
+						teamToAdd.save(function(err){
+							cb(err,teamToAdd);
+						});
+					});
         }
     });
   };
   
   var teamRoutes = this;
+  
+  //listing level routes
   app.route('/v1/teams').post(function(req, res) {
     console.log("Attempting to add team",req.body);
-    // use mongoose to get all teams in the database
+    // use mongoose to save the team...
     teamRoutes.saveTeam(new Team(req.body), function(err, team) {
       if(err) {
         res.send(err);
@@ -27,6 +46,8 @@ module.exports = function(app) {
         res.send(team);
       }
     });
+    
+    //now we need to update the matches table with the proper references
   })
   .get(function(req, res) {
     // use mongoose to get all teams in the database
@@ -42,19 +63,56 @@ module.exports = function(app) {
     });
   });
   
-  app.route('/v1/teams/:id').delete(function (req, res){
+  //individual team-level CRUD
+  app.route('/v1/teams/:id').get(function (req, res){
 
     Team.findById(req.params.id, function (err, team) {
-      if(!team) {
+      if(err) {
+        res.send(err);
+      } else {
+        res.send(team);
+      }
+    });
+  })
+  .put(function (req, res){
+
+    Team.findByIdAndUpdate(req.params.id, req.body, function (err, team) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(team);
+    }
+  });
+  })
+  .post(function(req, res) {
+    console.log("Attempting to add team",req.body);
+    
+    //when we add a team we need to link existing matches
+    var newTeam = new Team(req.body);
+		
+		// use mongoose to save the team...
+		teamRoutes.saveTeam(newTeam, function(err, team) {
+			if(err) {
+				res.send(err);
+			} else {
+				res.send(team);
+			}
+		});
+  })
+  .delete(function (req, res){
+
+    Team.findById(req.params.id, function (err, team) {
+      if(err) {
         res.send(err);
       } else {
         console.log('removing team', team);
         team.remove(function (err) {
           if (!err) {
-            console.log("removed team", team.number);
-            return res.send('');
+            console.log("removed team", team._id);
+            res.send('');
           } else {
             console.log(err);
+            res.send(err);
           }
         });
       }

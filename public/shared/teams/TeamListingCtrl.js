@@ -13,7 +13,7 @@ angular.module('ilite.common').controller('TeamListingCtrl', ['$scope','$locatio
   
   this.deleteTeam = function(team) {
     console.log('deleting team', team._id);
-    Team.delete({teamId : team._id }).$promise.then(
+    team.$delete(
       //success
       function( value ){
         $scope.teamList= Team.query();
@@ -27,10 +27,11 @@ angular.module('ilite.common').controller('TeamListingCtrl', ['$scope','$locatio
   
   this.modifyTeam = function(team) {
     console.log('modifying team', team);
+    $location.path("/teamsListing/teamInput/" + team._id);
   }
   
   this.addTeam = function() {
-    $location.path("/teams/createTeam");
+    $location.path("/teamsListing/teamInput");
   }
   
   //allows for more readable html (angular call is <ControllerName>.<function> vs <function>

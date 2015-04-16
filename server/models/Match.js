@@ -1,14 +1,19 @@
 var mongoose = require('mongoose');
 
 var MatchSchema = new mongoose.Schema({
-  number: Number,
+  _id: Number,
   alliances: [{ 
     name: String,
     score: Number,
     teams: [{ 
-      type: mongoose.Schema.Types.ObjectId, ref: 'Team' 
+      type: Number, ref: 'Team' 
     }]
   }]
 });
+
+//find matches for each team
+MatchSchema.statics.findByTeam = function (teamId, cb) {
+  return this.find({"alliances.teams": teamId}, cb);
+};
 
 mongoose.model('Match', MatchSchema);

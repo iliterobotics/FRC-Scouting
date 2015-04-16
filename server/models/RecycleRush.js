@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 
 var RecycleRushTeamDataSchema = new mongoose.Schema({
   team: { 
-    type: mongoose.Schema.Types.ObjectId, ref: 'Team' 
+    type: Number, ref: 'Team' 
   },
   match: { 
-    type: mongoose.Schema.Types.ObjectId, ref: 'Match' 
+    type: Number, ref: 'Match' 
   },
   stacks: [{
     height: Number,

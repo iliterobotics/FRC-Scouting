@@ -1,10 +1,10 @@
 <div class="container-fluid">
   <div class="row">
-    <h3>Create Team</h3>
+    <h3>{{TeamInputCtrl.title}}</h3>
   </div>
   <div class="row">
     <h4>Team Number</h4>
-    <input type="number" class="form-control" ng-model="TeamInputCtrl.number" />
+    <input type="number" class="form-control" ng-model="TeamInputCtrl._id" />
   </div>
   <div class="row">
     <h4>Team Name</h4>
@@ -12,7 +12,7 @@
   </div>
   <hr>
   <div class="row">
-    <button type="button" class="btn btn-success col-xs-12" ng-click="TeamInputCtrl.createTeam()">
+    <button type="button" class="btn btn-success col-xs-12" ng-click="TeamInputCtrl.editTeam()">
       Save Team
     </button>
   </div>

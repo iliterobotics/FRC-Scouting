@@ -1,32 +1,40 @@
-<table class="table table-striped table-hover">
-  <caption>Team Listing</caption>
-  <thead>
-    <tr>
-      <td class="col-xs-2">#</td>
-      <td class="col-xs-4">Name</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="team in teamList |orderBy: 'number' track by team.number" ng-click="(editTeamId == team.number ? editTeamId = 'none' : TeamListingCtrl.viewTeam(team.number))" ng-right-click="editTeamId = (editTeamId == team.number ? 'none' : team.number)" ng-swipe-left="editTeamId = team.number" 
-      ng-swipe-right="editTeamId = 'none'">
-      <td class="col-xs-2">{{team.number}}</td>
-      <td class="col-xs-4">{{team.name}}</td>
-      <td class="col-xs-4">
-        <button ng-show="editTeamId == team.number" type="button" class="btn btn-warning" ng-click="TeamListingCtrl.modifyTeam(team)">
-          Modify
-        </button>
-        <button ng-show="editTeamId == team.number" type="button" class="btn btn-danger" ng-click="TeamListingCtrl.deleteTeam(team)">
-          Delete
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="container-fluid">
+  <div class="row">
+    <label>Team: <input  class="form-control" ng-model="search._id"></label>
+  </div>
+  <div class="row">
+    <table class="table table-striped table-hover">
+      <caption>Team Listing</caption>
+      <thead>
+        <tr>
+          <td class="col-xs-2">#</td>
+          <td class="col-xs-4">Name</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="team in teamList |filter:search:strict |orderBy: '_id' |limitTo: 50 track by team._id" ng-click="(editTeamId == team._id ? editTeamId = 'none' : TeamListingCtrl.viewTeam(team._id))" ng-right-click="editTeamId = (editTeamId == team._id ? 'none' : team._id)" ng-swipe-left="editTeamId = team._id" 
+          ng-swipe-right="editTeamId = 'none'">
+          <td class="col-xs-2">{{team._id}}</td>
+          <td class="col-xs-4">{{team.name}}</td>
+          <td class="col-xs-4">
+            <button ng-show="editTeamId == team._id" type="button" class="btn btn-warning" ng-click="TeamListingCtrl.modifyTeam(team)">
+              Modify
+            </button>
+            <button ng-show="editTeamId == team._id" type="button" class="btn btn-danger" ng-click="TeamListingCtrl.deleteTeam(team)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="row">
-  <hr>
+  <div class="row">
+    <hr>
+  </div>
+  <div class="row">
+    <button type="button" class="btn btn-primary col-xs-12" ng-click="TeamListingCtrl.addTeam()">
+      Add Team
+    </button>
+  </div>
 </div>
-
-<button type="button" class="btn btn-primary col-xs-12" ng-click="TeamListingCtrl.addTeam()">
-  Add Team
-</button>

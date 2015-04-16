@@ -4,10 +4,13 @@ var fs = require("fs");
 var mongoose = require("mongoose");
 var app = express();
 var TeamModel = require("./models/Team");
+var MatchModel = require("./models/Match");
 var Team = mongoose.model('Team');
+var Match = mongoose.model('Match');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/ilite');
+mongoose.connection.db.dropDatabase();
 
 //    app.use(express.logger());
 app.use(bodyParser.json());
@@ -27,22 +30,73 @@ var parse = require('csv-parse');
 var TeamRoutes = require("./routes/TeamRoutes");
 var teamRouter = new TeamRoutes(app);
 
-fs.readFile('config/teamlist', function (err, data) {
+Team.remove({}, function(err) { 
+   console.log('Teams removed') 
+});
+
+var MatchRoutes = require("./routes/MatchRoutes");
+var matchRouter = new MatchRoutes(app);
+//Match.remove({}, function(err) { 
+//   console.log('Matches removed') 
+//});
+
+//some sample matches to populate...
+fs.readFile('config/matchList', function (err, data) {
   if (err) throw err;
   
   parse(data, {delimiter: '\t'}, function(err, output){
     
     for(var index = 0; index < output.length; index++) {
-      var teamToAdd = new Team({ number: output[index][0], name: output[index][1] });
-//      console.log(teamToAdd);
-      teamRouter.saveTeam(teamToAdd, function(err,result) {
+      
+      var matchToAdd = new Match({ _id: output[index][0],
+                                  alliances: [{
+                                    name: 'Red',
+                                    teams: [
+                                      output[index][1],
+                                      output[index][2],
+                                      output[index][3],
+                                    ],
+                                    score: output[index][4],
+                                  },
+                                  {
+                                    name: 'Blue',
+                                    teams: [
+                                      output[index][5],
+                                      output[index][6],
+                                      output[index][7],
+                                    ],
+                                    score: output[index][8],
+                                  }]
+                                 });
+//      console.log(matchToAdd);
+      matchRouter.saveMatch(matchToAdd, function(err,result) {
         if(err) {
           console.log(err);
         } else {
-          console.log('Added Team', result.number);
+          console.log('Added Match', result._id);
         }
       });
     }
   });
-  
+});
+
+//read preloaded teams...
+fs.readFile('config/teamlist', function (err, data) {
+	if (err) throw err;
+
+	parse(data, {delimiter: '\t'}, function(err, output){
+
+		for(var index = 0; index < output.length; index++) {
+			var teamToAdd = new Team({ _id: output[index][0], name: output[index][1] });
+//      console.log(teamToAdd);
+			teamRouter.saveTeam(teamToAdd, function(err,result) {
+				if(err) {
+					console.log(err);
+				} else {
+//          console.log('Added Team', result._id);
+				}
+			});
+		}
+	});
+
 });

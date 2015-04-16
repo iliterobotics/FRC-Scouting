@@ -17,15 +17,30 @@ angular.module('ilite.routes').config(function($routeProvider, $locationProvider
         templateUrl : 'shared/match/matchListing.html',
         controller  : 'MatchCtrl'
     })
+	
+		.when('/matches/edit', {
+        templateUrl : 'shared/match/editMatch.html',
+        controller  : 'MatchEditCtrl'
+    })
+	
+		.when('/matches/edit/:id', {
+        templateUrl : 'shared/match/editMatch.html',
+        controller  : 'MatchEditCtrl'
+    })
 
     // route for the teams listing page
-    .when('/teams', {
+    .when('/teamsListing', {
         templateUrl : 'shared/teams/teamsListing.html',
         controller  : 'TeamListingCtrl'
     })
   
     // route for the selected team information
-    .when('/teams/createTeam', {
+    .when('/teamsListing/teamInput/:id', {
+        templateUrl : 'shared/teams/teamInput.html',
+        controller  : 'TeamInputCtrl'
+    })
+  
+    .when('/teamsListing/teamInput', {
         templateUrl : 'shared/teams/teamInput.html',
         controller  : 'TeamInputCtrl'
     })
@@ -37,7 +52,11 @@ angular.module('ilite.routes').config(function($routeProvider, $locationProvider
     })
   
     // route for entering match data
-    .when('/teams/:teamNumber/matchInput', {
+		.when('/teams/:teamNumber/matchInput', {
+        templateUrl : 'shared/match/matchInput.html',
+        controller  : 'MatchInputCtrl'
+    })
+    .when('/teams/:teamNumber/matchInput/:id', {
         templateUrl : 'shared/match/matchInput.html',
         controller  : 'MatchInputCtrl'
     });
