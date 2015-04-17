@@ -3,10 +3,16 @@ var bodyParser = require("body-parser");
 var fs = require("fs");
 var mongoose = require("mongoose");
 var app = express();
+
+//models
 var TeamModel = require("./models/Team");
 var MatchModel = require("./models/Match");
+var RecycleRushModel = require("./models/RecycleRush");
+
+//mongoose model objects
 var Team = mongoose.model('Team');
 var Match = mongoose.model('Match');
+var TeamData = mongoose.model('RecycleRushTeamData');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/ilite');
@@ -36,9 +42,16 @@ Team.remove({}, function(err) {
 
 var MatchRoutes = require("./routes/MatchRoutes");
 var matchRouter = new MatchRoutes(app);
-//Match.remove({}, function(err) { 
-//   console.log('Matches removed') 
-//});
+Match.remove({}, function(err) { 
+   console.log('Matches removed') 
+});
+
+var TeamDataRoutes = require("./routes/RecycleRushRoutes");
+var teamDataRouter = new TeamDataRoutes(app);
+
+TeamData.remove({}, function(err) { 
+   console.log('RecycleRush Data removed') 
+});
 
 //some sample matches to populate...
 fs.readFile('config/matchList', function (err, data) {

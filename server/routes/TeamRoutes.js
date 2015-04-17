@@ -1,7 +1,7 @@
 // grab the Team model
 var mongoose = require("mongoose");
 var Team = mongoose.model('Team');
-var Match = mongoose.model('Match');
+//var Match = mongoose.model('Match');
 
 module.exports = function(app) {
 
@@ -11,24 +11,29 @@ module.exports = function(app) {
           cb('Team ' + team._id + ' already exists',null);
         }else{
 					
-					Match.findByTeam(teamToAdd._id, function(err, matches) {
-
-						if(err) {
-							console.log(err);
-						} else if(matches.length > 0) {
-							console.log(matches);
-						}
-
-						if(matches) {
-							for(var index = 0; index < matches.length; index++) {
-								teamToAdd.matches.push(matches[index]._id);
-							}
-						}
-						
-						teamToAdd.save(function(err){
-							cb(err,teamToAdd);
-						});
+					if(err) {
+						console.log(err);
+					}
+					
+					teamToAdd.save(function(err){
+						cb(err,teamToAdd);
 					});
+					
+//					Match.findByTeam(teamToAdd._id, function(err, matches) {
+//
+//						if(err) {
+//							console.log(err);
+//						} else if(matches.length > 0) {
+//							console.log(matches);
+//						}
+//
+//						if(matches) {
+//							for(var index = 0; index < matches.length; index++) {
+//								teamToAdd.matches.push(matches[index]._id);
+//							}
+//						}
+//						
+//					});
         }
     });
   };

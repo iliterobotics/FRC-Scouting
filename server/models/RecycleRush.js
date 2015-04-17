@@ -7,9 +7,15 @@ var RecycleRushTeamDataSchema = new mongoose.Schema({
   match: { 
     type: Number, ref: 'Match' 
   },
+	autonomous: {
+    toteSet: Boolean,
+    numCans: Number,
+		numTotes: Number,
+		isInAutoZone:	Boolean
+  },
   stacks: [{
     height: Number,
-    type: String
+    location: String 
   }],
   caps: [{
     height: Number,
@@ -34,12 +40,22 @@ var RecycleRushTeamDataSchema = new mongoose.Schema({
     efficiency: Number
   }
 });
-  
-var RecycleRushScoringSchema = new mongoose.Schema({
-  toteValue: Number,
-  canValue: Number,
-  litterValue: Number
-});
+
+//custom lookup by team
+RecycleRushTeamDataSchema.statics.findByTeam = function(teamId, cb) {
+	return this.find({ team: teamId }, cb);
+};
+
+//custom lookup for match
+RecycleRushTeamDataSchema.statics.findTeamMatchData = function(teamId, matchId, cb) {
+	return this.findOne({ team: teamId, match: matchId }, cb);
+};
+
+//var RecycleRushScoringSchema = new mongoose.Schema({
+//  toteValue: Number,
+//  canValue: Number,
+//  litterValue: Number
+//});
 
 mongoose.model('RecycleRushTeamData', RecycleRushTeamDataSchema);
-mongoose.model('RecycleRushScoring', RecycleRushScoringSchema);
+//mongoose.model('RecycleRushScoring', RecycleRushScoringSchema);

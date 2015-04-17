@@ -1,0 +1,69 @@
+// grab the RecycleRushTeamData model
+var mongoose = require("mongoose");
+var RecycleRushTeamData = mongoose.model('RecycleRushTeamData');
+
+module.exports = function(app) {
+  
+  var matchRoutes = this;
+  
+  //listing level routes - supports get
+  app.route('/v1/recyclerush/matchData').get(function(req, res) {
+		// use mongoose to get all team match data in the database
+		RecycleRushTeamData.find(function(err, teamDataEntries) {
+
+			// if there is an error retrieving, send the error. 
+			// nothing after res.send(err) will execute
+			if (err) {
+				res.send(err);
+			}
+
+			//need to bubble this up to summary level
+			res.json(teamDataEntries); // return all teamDataEntries in JSON format
+		});
+  });
+  
+  //team-level supports get
+  app.route('/v1/recyclerush/matchData/:teamId').get(function (req, res){
+
+    RecycleRushTeamData.findByTeam(req.params.teamId, function (err, teamData) {
+      if(err) {
+        res.send(err);
+      } else {
+        res.send(teamData);
+      }
+    });
+  });
+	
+	//team and match level supports get and put/update
+	app.route('/v1/recyclerush/matchData/:teamId/:matchId').get(function (req, res){
+
+    RecycleRushTeamData.findTeamMatchData(req.params.teamId,req.params.matchId, function (err, teamData) {
+      if(err) {
+        res.send(err);
+      } else {
+        res.send(teamData);
+      }
+    });
+  })
+  .put(function (req, res){
+
+    RecycleRushTeamData.findByIdAndUpdate(req.body._id, req.body, function (err, teamData) {
+			if (err) {
+				res.send(err);
+			} else {
+				res.send(teamData);
+			}
+		});
+  })
+	.post(function (req, res){
+		var teamData = new RecycleRushTeamData(req.body);
+		
+    teamData.save(function(err){
+			if (err) {
+				res.send(err);
+			} else {
+				res.send(teamData);
+			}
+		});
+  });
+};

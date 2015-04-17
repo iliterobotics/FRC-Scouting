@@ -27,10 +27,10 @@
 			Add Match
 		</button>
 		<button  ng-show="selectedMatchId" type="button" class="btn btn-warning col-xs-6" ng-click="MatchCtrl.modifyMatch()">
-			Modify Match
+			Modify Match {{selectedMatchId}}
 		</button>
 		<button  ng-show="selectedMatchId" type="button" class="btn btn-danger col-xs-6" ng-click="MatchCtrl.deleteMatch()">
-			Delete Match
+			Delete Match {{selectedMatchId}}
 		</button>
 	</div>
 </div>

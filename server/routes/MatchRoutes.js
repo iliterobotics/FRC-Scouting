@@ -1,6 +1,7 @@
 // grab the Match model
 var mongoose = require("mongoose");
 var Match = mongoose.model('Match');
+//var RecycleRushMatchData = mongoose.model('RecycleRushTeamData');
 
 module.exports = function(app) {
 
@@ -23,7 +24,7 @@ module.exports = function(app) {
   //optional var for team #
   app.route('/v1/match').post(function(req, res) {
     console.log("Attempting to add match",req.body);
-    // use mongoose to get all matchs in the database
+    // use mongoose to get all matches in the database
     matchRoutes.saveMatch(new Match(req.body), function(err, match) {
       if(err) {
         res.send(err);
@@ -33,17 +34,34 @@ module.exports = function(app) {
     });
   })
   .get(function(req, res) {
-    // use mongoose to get all matchs in the database
-    Match.find(function(err, matchs) {
+		
+		var teamQuery = req.query.teamNumber;
+		if(teamQuery) {
+			//find all matches for a particular team
+			Match.findByTeam(teamQuery, function(err, matches) {
+				
+				// if there is an error retrieving, send the error. 
+				// nothing after res.send(err) will execute
+				if (err) {
+					res.send(err);
+				}
 
-      // if there is an error retrieving, send the error. 
-      // nothing after res.send(err) will execute
-      if (err) {
-        res.send(err);
-      }
+				res.json(matches); // return all matches in JSON format
+				
+			});
+		} else {
+			// use mongoose to get all matches in the database
+			Match.find(function(err, matches) {
 
-      res.json(matchs); // return all matchs in JSON format
-    });
+				// if there is an error retrieving, send the error. 
+				// nothing after res.send(err) will execute
+				if (err) {
+					res.send(err);
+				}
+
+				res.json(matches); // return all matches in JSON format
+			});
+		}
   });
   
   //individual match-level CRUD
@@ -60,16 +78,16 @@ module.exports = function(app) {
   .put(function (req, res){
 
     Match.findByIdAndUpdate(req.params.id, req.body, function (err, match) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(match);
-    }
-  });
+			if (err) {
+				res.send(err);
+			} else {
+				res.send(match);
+			}
+		});
   })
 	.post(function(req, res) {
     console.log("Attempting to add match",req.body);
-    // use mongoose to get all matchs in the database
+    // use mongoose to get all matches in the database
     matchRoutes.saveMatch(new Match(req.body), function(err, match) {
       if(err) {
         res.send(err);

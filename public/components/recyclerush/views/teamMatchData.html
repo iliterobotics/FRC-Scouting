@@ -1,0 +1,217 @@
+<div class="container-fluid">
+  <h3>Team {{TeamMatchDataCtrl.matchData.team}} - Match {{TeamMatchDataCtrl.matchData.match}}</h3>
+  <div class="row">
+    <tabset>
+      <tab heading="Auto">
+<!--
+        <h5>Bot Score</h5>
+        <input class="form-control" />
+-->
+      
+        <h5>Tote Set</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.autonomous.toteSet">
+          <option>true</option>
+          <option>false</option>
+        </select>
+
+        <h5>Bot in Auto Zone</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.autonomous.isInAutoZone">
+          <option>true</option>
+          <option>false</option>
+        </select>
+
+        <h5># Totes</h5>
+        <select class="form-control"  ng-model="TeamMatchDataCtrl.matchData.autonomous.numTotes">
+					<option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
+
+        <h5># Cans</h5>
+        <select class="form-control"  ng-model="TeamMatchDataCtrl.matchData.autonomous.numCans">
+					<option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </tab>
+      <tab heading="Stack">
+
+        <table class="table table-striped table-hover">
+          <caption>Stacks</caption>
+          <thead>
+            <tr>
+              <td class="col-xs-1">#</td>
+              <td class="col-xs-4">Height</td>
+              <td class="col-xs-4">Type?</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="stack in TeamMatchDataCtrl.matchData.stacks">
+              <td class="col-xs-1">{{$index}}</td>
+              <td class="col-xs-2">
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.stacks[$index].height">
+									<option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </td>
+              <td class="col-xs-2">
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.stacks[$index].location">
+                  <option>Human Player</option>
+                  <option>Landfill</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button type="button" class="btn btn-primary col-xs-6" ng-click="TeamMatchDataCtrl.addStack()">
+          Add Stack
+        </button>
+
+        <button type="button" class="btn btn-danger col-xs-6">
+          Delete Stack
+        </button>
+
+      </tab>
+			<tab heading="Cap">
+				<table class="table table-striped table-hover">
+          <caption>Caps</caption>
+          <thead>
+            <tr>
+              <td class="col-xs-1">#</td>
+              <td class="col-xs-4">Height</td>
+              <td class="col-xs-4">Litter?</td>
+            </tr>
+          </thead>
+          <tbody>
+						<tr ng-repeat="cap in TeamMatchDataCtrl.matchData.caps">
+							<td class="col-xs-1">{{$index}}</td>
+              <td class="col-xs-4">
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.caps[$index].height">
+									<option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </td>
+              <td class="col-xs-4">
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.caps[$index].litter">
+                  <option>true</option>
+                  <option>false</option>
+                </select>
+              </td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<button type="button" class="btn btn-primary col-xs-6" ng-click="TeamMatchDataCtrl.addCap()">
+          Add Cap
+        </button>
+
+        <button type="button" class="btn btn-danger col-xs-6">
+          Delete Cap
+        </button>
+			</tab>
+      <tab heading="Burglar">
+
+        <h5>Efficiency</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.burglar.efficiency">
+					<option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+
+        <h5>Cans Attempted</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.burglar.cansAttempted">
+					<option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+
+        <h5>Cans Captured</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.burglar.cansCaptured">
+					<option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+
+        <h5>During Autonomous?</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.burglar.autonomous">
+          <option>true</option>
+          <option>false</option>
+        </select>
+
+        <h5>Can Battle?</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.burglar.battle">
+          <option>Win</option>
+          <option>Loss</option>
+          <option>No Battle</option>
+        </select>
+
+      </tab>
+      <tab heading="Ramp">
+        <h5>Number of Ramps</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.ramp.quantity">
+					<option>0</option>
+          <option>1</option>
+          <option>2</option>
+        </select>
+
+        <h5>Number of Totes on Ramp</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.ramp.toteCapacity">
+					<option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+
+        <h5>Number of Cycles</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.ramp.numCycles">
+					<option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+        </select>
+
+        <h5>Interfere with Autonomous?</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.ramp.interferes">
+          <option>true</option>
+          <option>false</option>
+        </select>
+      </tab>
+    </tabset>
+  </div>
+  <div class="row">
+    <hr>
+  </div>
+  <div class="row">
+    <button type="button" class="btn btn-success col-xs-12" ng-click="TeamMatchDataCtrl.saveMatch()">
+      Save Match
+    </button>
+  </div>
+</div>
