@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var XLSX = require('xlsx');
+var User = mongoose.model('User');
 var Team = mongoose.model('Team');
 var RecycleRushTeamData = mongoose.model('RecycleRushTeamData');
 
@@ -82,6 +83,30 @@ module.exports = {
 			
 //			console.log(teamData);
 		}
+	},
+	
+	userImport: function(file) {
+		var userWorkbook = XLSX.readFile(file);
+		
+		var userSheet = userWorkbook.Sheets['users'];
+		
+		var rowId = 2;
+		var colId = 'C';
+		
+		var userRow = userSheet[colId + rowId];
+		
+		while(userRow) {
+			var userToAdd = new User ({ username: userRow.v });
+			userToAdd.setPassword('team1885');
+			
+			userToAdd.save(function (err){
+				if(err){ console.log(err); }
+			});
+			
+			rowId++;
+			userRow = userSheet[colId + rowId];
+		}
+		
 	}
 	
 };

@@ -49,21 +49,26 @@ var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 var UserRoutes = require("./routes/UserRoutes");
 var UserRouter = new UserRoutes(app, auth);
 
-User.remove({}, function(err) { 
-  console.log('Users removed') 
-});
+dataLoader.userImport('config/Users.xlsx');
+
+//User.remove({}, function(err) { 
+//  console.log('Users removed');
+//	
+//	dataLoader.userImport('config/Users.xlsx');
+//	
+//});
 
 var TeamRoutes = require("./routes/TeamRoutes");
 var teamRouter = new TeamRoutes(app, auth);
 
 Team.remove({}, function(err) { 
-  console.log('Teams removed') 
+  console.log('Teams removed');
 });
 
 var MatchRoutes = require("./routes/MatchRoutes");
 var matchRouter = new MatchRoutes(app, auth);
 Match.remove({}, function(err) { 
-  console.log('Matches removed') 
+  console.log('Matches removed');
 });
 
 var TeamDataRoutes = require("./routes/RecycleRushRoutes", auth);

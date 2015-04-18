@@ -35,10 +35,10 @@ angular.module('ilite.common').config(function($routeProvider, $locationProvider
         controller  : 'AuthCtrl'
     })
 	
-		.when('/register', {
-        templateUrl : 'shared/auth/register.html',
-        controller  : 'AuthCtrl'
-    })
+//		.when('/register', {
+//        templateUrl : 'shared/auth/register.html',
+//        controller  : 'AuthCtrl'
+//    })
 	
     // route for the rankings page
     .when('/rankings', {

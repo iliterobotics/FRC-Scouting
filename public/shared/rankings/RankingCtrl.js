@@ -21,7 +21,7 @@ angular.module('ilite.common').controller('RankingCtrl', ['$scope','$location','
 		},
 		//error
 		function( error ){
-			alert(error);
+			console.log(angular.toJson(error));
 		}
 	);
   

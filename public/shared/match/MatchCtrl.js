@@ -26,7 +26,7 @@ angular.module('ilite.common').controller('MatchCtrl', ['$scope','$location','$h
 				$scope.matches = Match.query();
 			},
 			function(err) {
-				alert(err);
+				console.log(angular.toJson(err));
 			});
 	};
 	
