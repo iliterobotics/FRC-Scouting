@@ -1,10 +1,9 @@
 //define angular modules here
-angular.module('ilite.routes',['ngRoute']);
-angular.module('ilite.common',['ngResource']);
+angular.module('ilite.common',['ngResource', 'ngRoute']);
 angular.module('ilite.recycleRush',[]);
 
 //app-level module is iliteApp
-var app = angular.module('iliteApp', ['ui.bootstrap', 'ilite.routes', 'ilite.common', 'ilite.recycleRush']);
+var app = angular.module('iliteApp', ['ui.bootstrap', 'ilite.common', 'ilite.recycleRush']);
 
 app.directive('ngRightClick', function($parse) {
     return function(scope, element, attrs) {

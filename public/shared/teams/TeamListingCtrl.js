@@ -1,6 +1,8 @@
 //Angular Controller for teams listing
-angular.module('ilite.common').controller('TeamListingCtrl', ['$scope','$location','Team', function($scope,$location,Team) {
+angular.module('ilite.common').controller('TeamListingCtrl', ['$scope','$location','$http','Team','auth', function($scope,$location,$http,Team,auth) {
   
+	$http.defaults.headers.common.Authorization = 'Bearer '+auth.getToken();
+	console.log(auth.getToken());
   $scope.teamList = Team.query();
   
   this.query = function () {

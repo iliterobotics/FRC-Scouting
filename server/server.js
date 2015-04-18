@@ -5,14 +5,21 @@ var mongoose = require("mongoose");
 var app = express();
 
 //models
+var UserModel = require('./models/User');
 var TeamModel = require("./models/Team");
 var MatchModel = require("./models/Match");
 var RecycleRushModel = require("./models/RecycleRush");
 
 //mongoose model objects
+var User = mongoose.model('User');
 var Team = mongoose.model('Team');
 var Match = mongoose.model('Match');
 var TeamData = mongoose.model('RecycleRushTeamData');
+
+//auth
+var passport = require('passport');
+var jwt = require('express-jwt');
+require('./config/passport');
 
 //data loader
 var dataLoader = require('./controllers/dataLoader.js');
@@ -26,6 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view options", {layout: false});
 app.use(express.static(__dirname + '/../public'));
+app.use(passport.initialize());
 
 app.get('/', function(req, res){
     res.sendFile('/public/index.html');
@@ -36,21 +44,30 @@ console.log('Express server started');
 
 var parse = require('csv-parse');
 
+var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+
+var UserRoutes = require("./routes/UserRoutes");
+var UserRouter = new UserRoutes(app, auth);
+
+User.remove({}, function(err) { 
+  console.log('Users removed') 
+});
+
 var TeamRoutes = require("./routes/TeamRoutes");
-var teamRouter = new TeamRoutes(app);
+var teamRouter = new TeamRoutes(app, auth);
 
 Team.remove({}, function(err) { 
   console.log('Teams removed') 
 });
 
 var MatchRoutes = require("./routes/MatchRoutes");
-var matchRouter = new MatchRoutes(app);
+var matchRouter = new MatchRoutes(app, auth);
 Match.remove({}, function(err) { 
   console.log('Matches removed') 
 });
 
-var TeamDataRoutes = require("./routes/RecycleRushRoutes");
-var teamDataRouter = new TeamDataRoutes(app);
+var TeamDataRoutes = require("./routes/RecycleRushRoutes", auth);
+var teamDataRouter = new TeamDataRoutes(app, auth);
 
 TeamData.remove({}, function(err) { 
   console.log('RecycleRush Data removed');

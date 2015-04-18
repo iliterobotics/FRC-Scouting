@@ -7,6 +7,7 @@ var RecycleRushTeamDataSchema = new mongoose.Schema({
   match: { 
     type: Number, ref: 'Match' 
   },
+	author: String,
 	autonomous: {
     toteSet: {type: Boolean, default: false},
     numCans: {type: Number, default: 0},
@@ -129,7 +130,7 @@ var getSummary = function(teamDataEntries) {
 		var toteScore = 0;
 		
 		for(var stackIndex = 0; stackIndex < dataEntry.stacks.length; stackIndex++) {
-			console.log(dataEntry.stacks[stackIndex].height, summaryData.stacking.height);
+//			console.log(dataEntry.stacks[stackIndex].height, summaryData.stacking.height);
 			summaryData.stacking.height += dataEntry.stacks[stackIndex].height;
 			summaryData.stacking.maxHeight = (dataEntry.stacks[stackIndex].height > summaryData.stacking.maxHeight) ? dataEntry.stacks[stackIndex].height : summaryData.stacking.maxHeight;
 

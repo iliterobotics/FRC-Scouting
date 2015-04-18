@@ -11,7 +11,7 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default" role="navigation" ng-controller="MainCtrl">
       
       <div class="navbar-header">
 
@@ -30,7 +30,10 @@
           <li><a href="#rankings">Rankings</a></li>
           <li><a href="#matches">Matches</a></li>
           <li><a href="#teamsListing">Teams</a></li>
-
+					<li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+					<li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+					<li ng-hide="isLoggedIn()"><a href="#login">Log In</a></li>
+					<li ng-hide="isLoggedIn()"><a href="#register">Register</a></li>
         </ul>
       </div>
     </nav>
@@ -65,6 +68,10 @@
     
     <!-- app entrance point -->
     <script type="application/javascript" src="shared/app.js"></script>
+		
+		<!-- Auth -->
+		<script type="application/javascript" src="shared/auth/Auth.js"></script>
+		
     <script type="application/javascript" src="shared/main/routes.js"></script>
     
     <!-- Services -->

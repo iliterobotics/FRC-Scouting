@@ -1,7 +1,9 @@
 //Angular Controller for ranking table
-angular.module('ilite.common').controller('RankingCtrl', ['$scope','$location','TeamMatchData', function($scope,$location,TeamMatchData) {
+angular.module('ilite.common').controller('RankingCtrl', ['$scope','$location','$http','TeamMatchData','auth', function($scope,$location,$http,TeamMatchData,auth) {
 
 	this.teamDataList = [];
+	
+	$http.defaults.headers.common.Authorization = 'Bearer '+auth.getToken();
 	
   TeamMatchData.get().$promise.then(
 		//success

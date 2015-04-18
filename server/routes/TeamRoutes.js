@@ -3,8 +3,8 @@ var mongoose = require("mongoose");
 var Team = mongoose.model('Team');
 //var Match = mongoose.model('Match');
 
-module.exports = function(app) {
-
+module.exports = function(app, auth) {
+	
   this.saveTeam = function(teamToAdd, cb) {
     Team.findById(teamToAdd._id, function (err, team) {
         if (err){
@@ -41,7 +41,7 @@ module.exports = function(app) {
   var teamRoutes = this;
   
   //listing level routes
-  app.route('/v1/teams').post(function(req, res) {
+  app.route('/v1/teams').all(auth).post(function(req, res) {
     console.log("Attempting to add team",req.body);
     // use mongoose to save the team...
     teamRoutes.saveTeam(new Team(req.body), function(err, team) {
@@ -69,7 +69,7 @@ module.exports = function(app) {
   });
   
   //individual team-level CRUD
-  app.route('/v1/teams/:id').get(function (req, res){
+  app.route('/v1/teams/:id',auth).get(function (req, res){
 
     Team.findById(req.params.id, function (err, team) {
       if(err) {

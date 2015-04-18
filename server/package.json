@@ -7,8 +7,12 @@
     "body-parser": "^1.12.2",
     "csv-parse": "^0.1.0",
     "express": "^4.12.3",
+    "express-jwt": "^3.0.0",
+    "jsonwebtoken": "^5.0.0",
     "mongoose": "^4.0.1",
     "node-gyp": "^1.0.3",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
     "xlsx": "^0.8.0"
   },
   "devDependencies": {},

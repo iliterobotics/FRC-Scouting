@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 var Match = mongoose.model('Match');
 var RecycleRushMatchData = mongoose.model('RecycleRushTeamData');
 
-module.exports = function(app) {
+module.exports = function(app, auth) {
 
   this.saveMatch = function(match, cb) {
     Match.find({_id : match._id}, function (err, docs) {
@@ -35,7 +35,7 @@ module.exports = function(app) {
   
   //listing level routes
   //optional var for team #
-  app.route('/v1/match').post(function(req, res) {
+  app.route('/v1/match').all(auth).post(function(req, res) {
     console.log("Attempting to add match",req.body);
     // use mongoose to get all matches in the database
     matchRoutes.saveMatch(new Match(req.body), function(err, match) {
@@ -78,7 +78,7 @@ module.exports = function(app) {
   });
   
   //individual match-level CRUD
-  app.route('/v1/match/:id').get(function (req, res){
+  app.route('/v1/match/:id').all(auth).get(function (req, res){
 
     Match.findById(req.params.id, function (err, match) {
       if(err) {

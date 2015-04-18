@@ -2,12 +2,12 @@
 var mongoose = require("mongoose");
 var RecycleRushTeamData = mongoose.model('RecycleRushTeamData');
 
-module.exports = function(app) {
+module.exports = function(app, auth) {
   
   var matchRoutes = this;
   
   //listing level routes - supports get
-  app.route('/v1/recyclerush/matchData').get(function(req, res) {
+  app.route('/v1/recyclerush/matchData').all(auth).get(function(req, res) {
 		// use mongoose to get all team match data in the database
 		RecycleRushTeamData.findSummary(function(err, teamDataEntries) {
 
@@ -23,7 +23,7 @@ module.exports = function(app) {
   });
   
   //team-level supports get
-  app.route('/v1/recyclerush/matchData/:teamId').get(function (req, res){
+  app.route('/v1/recyclerush/matchData/:teamId').all(auth).get(function (req, res){
 
     RecycleRushTeamData.findTeamSummary(req.params.teamId, function (err, teamData) {
       if(err) {
@@ -35,7 +35,7 @@ module.exports = function(app) {
   });
 	
 	//team and match level supports get and put/update
-	app.route('/v1/recyclerush/matchData/:teamId/:matchId').get(function (req, res){
+	app.route('/v1/recyclerush/matchData/:teamId/:matchId').all(auth).get(function (req, res){
 
     RecycleRushTeamData.findTeamMatchData(req.params.teamId,req.params.matchId, function (err, teamData) {
       if(err) {
@@ -57,7 +57,7 @@ module.exports = function(app) {
   })
 	.post(function (req, res){
 		var teamData = new RecycleRushTeamData(req.body);
-		
+		teamData.auther = req.payload.username;
     teamData.save(function(err){
 			if (err) {
 				res.send(err);

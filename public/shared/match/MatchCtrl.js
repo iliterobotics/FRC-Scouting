@@ -1,8 +1,10 @@
 //Angular Controller for matches
-angular.module('ilite.common').controller('MatchCtrl', ['$scope','$location','Match', function($scope,$location,Match) {
+angular.module('ilite.common').controller('MatchCtrl', ['$scope','$location','$http','Match','auth', function($scope,$location,$http,Match,auth) {
   
   $scope.matches = Match.query();
   
+	$http.defaults.headers.common.Authorization = 'Bearer '+auth.getToken();
+	
 	this.selectMatch = function(matchId) {
 		if(!$scope.selectedMatchId) {
 			$scope.selectedMatchId = matchId;

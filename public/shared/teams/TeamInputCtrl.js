@@ -1,7 +1,9 @@
 //Angular Controller for team information
-angular.module('ilite.common').controller('TeamInputCtrl', ['$scope','$routeParams','$location','Team', function($scope,$routeParams,$location,Team) {
+angular.module('ilite.common').controller('TeamInputCtrl', ['$scope','$routeParams','$location','$http','Team','auth', function($scope,$routeParams,$location,$http,Team,auth) {
   this.title = 'Create Team';
   
+	$http.defaults.headers.common.Authorization = 'Bearer '+auth.getToken();
+																														
   if($routeParams.id) {
     Team.get({ teamId: $routeParams.id }).$promise.then(
       //success
