@@ -2,7 +2,17 @@
 angular.module('ilite.common').controller('TeamDataCtrl', ['$scope','$routeParams','$location','Match','TeamMatchData', function($scope,$routeParams,$location,Match,TeamMatchData) {
   this.teamNumber = $routeParams.teamNumber;
 
-	this.matches = Match.query({ teamNumber: this.teamNumber });
+	TeamMatchData.get({ teamId: this.teamNumber }).$promise.then(
+		//success
+		function( retrievedTeamData ){
+			console.log(angular.toJson(retrievedTeamData[$scope.TeamDataCtrl.teamNumber]));
+			$scope.TeamDataCtrl.teamData = retrievedTeamData[$scope.TeamDataCtrl.teamNumber];
+		},
+		//error
+		function( error ){
+			alert(error);
+		}
+	);
 	
 //  this.createMatch = function() {
 //    $location.path("/teams/"+this.teamNumber + "/editData");

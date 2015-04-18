@@ -101,7 +101,13 @@ angular.module('ilite.common').controller('MatchEditCtrl', ['$scope','$location'
 					$location.path("/matches");
 				});
 			});
-    }
+    } else {
+			//save the new entry
+			match.$save(function() {
+				//navigate back to the listings
+				$location.path("/matches");
+			});
+		}
     
     console.log(match);
   };

@@ -9,7 +9,7 @@ module.exports = function(app) {
   //listing level routes - supports get
   app.route('/v1/recyclerush/matchData').get(function(req, res) {
 		// use mongoose to get all team match data in the database
-		RecycleRushTeamData.find(function(err, teamDataEntries) {
+		RecycleRushTeamData.findSummary(function(err, teamDataEntries) {
 
 			// if there is an error retrieving, send the error. 
 			// nothing after res.send(err) will execute
@@ -25,7 +25,7 @@ module.exports = function(app) {
   //team-level supports get
   app.route('/v1/recyclerush/matchData/:teamId').get(function (req, res){
 
-    RecycleRushTeamData.findByTeam(req.params.teamId, function (err, teamData) {
+    RecycleRushTeamData.findTeamSummary(req.params.teamId, function (err, teamData) {
       if(err) {
         res.send(err);
       } else {

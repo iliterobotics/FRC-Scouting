@@ -17,18 +17,14 @@
         </tr>
       </thead>
       <tbody>
-    <!--
-        <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
-          <td class="col-xs-2">{{$index}}</td>
-          <td class="col-xs-2">{{teamStats.teamId}}</td>
-          <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
-          <td class="col-xs-2">{{teamStats.totalAuto}}</td>
-          <td class="col-xs-2">{{teamStats.totalTotes}}</td>
-          <td class="col-xs-2">{{teamStats.totalCaps}}</td>
-          <td class="col-xs-2">{{teamStats.totalLitter}}</td>
-          <td class="col-xs-2">{{teamStats.totalCoop}}</td>
-        </tr>
-    -->
+				<tr>
+					<td class="col-xs-2">{{TeamDataCtrl.teamData.total.toFixed(2)/TeamDataCtrl.teamData.matches.length}}</td>
+					<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.totalPoints.toFixed(2)}}</td>
+					<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.totalPoints.toFixed(2)}}</td>
+					<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.totalCapPoints.toFixed(2)}}</td>
+					<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.totalLitterPoints.toFixed(2)}}</td>
+					<td class="col-xs-2">{{TeamDataCtrl.teamData.coop.totalPoints.toFixed(2)}}</td>
+				</tr>
       </tbody>
     </table>
   </div>
@@ -48,18 +44,13 @@
             </tr>
           </thead>
           <tbody>
-        <!--
-            <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
-              <td class="col-xs-2">{{$index}}</td>
-              <td class="col-xs-2">{{teamStats.teamId}}</td>
-              <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
-              <td class="col-xs-2">{{teamStats.totalAuto}}</td>
-              <td class="col-xs-2">{{teamStats.totalTotes}}</td>
-              <td class="col-xs-2">{{teamStats.totalCaps}}</td>
-              <td class="col-xs-2">{{teamStats.totalLitter}}</td>
-              <td class="col-xs-2">{{teamStats.totalCoop}}</td>
-            </tr>
-        -->
+						<tr>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.toteSet/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.numCans/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.numTotes/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.isInAutoZone/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">No</td>
+						</tr>
           </tbody>
         </table>
         
@@ -77,18 +68,13 @@
             </tr>
           </thead>
           <tbody>
-        <!--
-            <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
-              <td class="col-xs-2">{{$index}}</td>
-              <td class="col-xs-2">{{teamStats.teamId}}</td>
-              <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
-              <td class="col-xs-2">{{teamStats.totalAuto}}</td>
-              <td class="col-xs-2">{{teamStats.totalTotes}}</td>
-              <td class="col-xs-2">{{teamStats.totalCaps}}</td>
-              <td class="col-xs-2">{{teamStats.totalLitter}}</td>
-              <td class="col-xs-2">{{teamStats.totalCoop}}</td>
-            </tr>
-        -->
+						<tr>
+							<td class="col-xs-2">{{(TeamDataCtrl.teamData.stacking.numHP + TeamDataCtrl.teamData.stacking.numLF)/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.height.toFixed(2)/(TeamDataCtrl.teamData.stacking.numHP + TeamDataCtrl.teamData.stacking.numLF)}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.maxHeight}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.numHP/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.numLF/TeamDataCtrl.teamData.matches.length}}</td>
+						</tr>
           </tbody>
         </table>
         
@@ -105,18 +91,12 @@
             </tr>
           </thead>
           <tbody>
-        <!--
-            <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
-              <td class="col-xs-2">{{$index}}</td>
-              <td class="col-xs-2">{{teamStats.teamId}}</td>
-              <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
-              <td class="col-xs-2">{{teamStats.totalAuto}}</td>
-              <td class="col-xs-2">{{teamStats.totalTotes}}</td>
-              <td class="col-xs-2">{{teamStats.totalCaps}}</td>
-              <td class="col-xs-2">{{teamStats.totalLitter}}</td>
-              <td class="col-xs-2">{{teamStats.totalCoop}}</td>
-            </tr>
-        -->
+						<tr>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.numCaps/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.height.toFixed(2)/TeamDataCtrl.teamData.capping.numCaps}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.maxHeight}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.litter/TeamDataCtrl.teamData.matches.length}}</td>
+						</tr>
           </tbody>
         </table>
       </tab>
@@ -133,18 +113,13 @@
             </tr>
           </thead>
           <tbody>
-        <!--
-            <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
-              <td class="col-xs-2">{{$index}}</td>
-              <td class="col-xs-2">{{teamStats.teamId}}</td>
-              <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
-              <td class="col-xs-2">{{teamStats.totalAuto}}</td>
-              <td class="col-xs-2">{{teamStats.totalTotes}}</td>
-              <td class="col-xs-2">{{teamStats.totalCaps}}</td>
-              <td class="col-xs-2">{{teamStats.totalLitter}}</td>
-              <td class="col-xs-2">{{teamStats.totalCoop}}</td>
-            </tr>
-        -->
+						<tr>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.efficiency/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.cansAttempted/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.cansCaptured/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.autonomous/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.battle/TeamDataCtrl.teamData.matches.length}}</td>
+						</tr>
           </tbody>
         </table>
       </tab>
@@ -160,18 +135,12 @@
             </tr>
           </thead>
           <tbody>
-        <!--
-            <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
-              <td class="col-xs-2">{{$index}}</td>
-              <td class="col-xs-2">{{teamStats.teamId}}</td>
-              <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
-              <td class="col-xs-2">{{teamStats.totalAuto}}</td>
-              <td class="col-xs-2">{{teamStats.totalTotes}}</td>
-              <td class="col-xs-2">{{teamStats.totalCaps}}</td>
-              <td class="col-xs-2">{{teamStats.totalLitter}}</td>
-              <td class="col-xs-2">{{teamStats.totalCoop}}</td>
-            </tr>
-        -->
+						<tr>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.quantity/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.numCycles/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.toteCapacity/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.interferes/TeamDataCtrl.teamData.matches.length}}</td>
+						</tr>
           </tbody>
         </table>
       </tab>
@@ -205,14 +174,14 @@
       </thead>
       <tbody>
     
-        <tr ng-repeat="match in TeamDataCtrl.matches | orderBy: '_id'" ng-click="TeamDataCtrl.modifyMatch(match._id)">
-          <td class="col-xs-2">{{match._id}}</td>
-          <td class="col-xs-2">0</td>
-          <td class="col-xs-2">0</td>
-          <td class="col-xs-2">0</td>
-          <td class="col-xs-2">0</td>
-          <td class="col-xs-2">0</td>
-          <td class="col-xs-2">0</td>
+        <tr ng-repeat="match in TeamDataCtrl.teamData.matches | orderBy: 'id'" ng-click="TeamDataCtrl.modifyMatch(match.id)">
+          <td class="col-xs-2">{{match.id}}</td>
+          <td class="col-xs-2">{{match.score.toFixed(2)}}</td>
+          <td class="col-xs-2">{{match.autonomousScore.toFixed(2)}}</td>
+          <td class="col-xs-2">{{match.totesScore.toFixed(2)}}</td>
+          <td class="col-xs-2">{{match.capsScore.toFixed(2)}}</td>
+          <td class="col-xs-2">{{match.litterScore.toFixed(2)}}</td>
+          <td class="col-xs-2">{{match.coopScore.toFixed(2)}}</td>
         </tr>
     
       </tbody>

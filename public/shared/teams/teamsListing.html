@@ -12,10 +12,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="team in teamList |filter:search:strict |orderBy: '_id' |limitTo: 50 track by team._id" ng-click="(editTeamId == team._id ? editTeamId = 'none' : TeamListingCtrl.viewTeam(team._id))" ng-right-click="editTeamId = (editTeamId == team._id ? 'none' : team._id)" ng-swipe-left="editTeamId = team._id" 
-          ng-swipe-right="editTeamId = 'none'">
+				
+				<tr ng-repeat="team in teamList |filter:search:strict |orderBy: '_id' track by team._id" ng-click="TeamListingCtrl.viewTeam(team._id)">
+				
+<!--        <tr ng-repeat="team in teamList |filter:search:strict |orderBy: '_id' |limitTo: 50 track by team._id" ng-click="(editTeamId == team._id ? editTeamId = 'none' : TeamListingCtrl.viewTeam(team._id))" ng-right-click="editTeamId = (editTeamId == team._id ? 'none' : team._id)" ng-swipe-left="editTeamId = team._id" ng-swipe-right="editTeamId = 'none'">-->
           <td class="col-xs-2">{{team._id}}</td>
           <td class="col-xs-4">{{team.name}}</td>
+<!--
           <td class="col-xs-4">
             <button ng-show="editTeamId == team._id" type="button" class="btn btn-warning" ng-click="TeamListingCtrl.modifyTeam(team)">
               Modify
@@ -24,6 +27,7 @@
               Delete
             </button>
           </td>
+-->
         </tr>
       </tbody>
     </table>

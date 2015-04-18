@@ -2,7 +2,7 @@
   <caption>Rankings</caption>
   <thead>
     <tr>
-      <td class="col-xs-2">#</td>
+      <td class="col-xs-1">#</td>
       <td class="col-xs-2">Team</td>
       <td class="col-xs-2">Avg</td>
       <td class="col-xs-2">Auto</td>
@@ -13,15 +13,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="teamStats in teamStatistics | orderBy: '-scoringAvg'" ng-click="RankingCtrl.viewTeam(teamStats.teamId)">
-      <td class="col-xs-2">{{$index}}</td>
-      <td class="col-xs-2">{{teamStats.teamId}}</td>
-      <td class="col-xs-2">{{teamStats.scoringAvg}}</td>
-      <td class="col-xs-2">{{teamStats.totalAuto}}</td>
-      <td class="col-xs-2">{{teamStats.totalTotes}}</td>
-      <td class="col-xs-2">{{teamStats.totalCaps}}</td>
-      <td class="col-xs-2">{{teamStats.totalLitter}}</td>
-      <td class="col-xs-2">{{teamStats.totalCoop}}</td>
+    <tr ng-repeat="teamData in RankingCtrl.teamDataList | orderBy: '-average'" ng-click="RankingCtrl.viewTeam(teamData.team)">
+      <td class="col-xs-1">{{$index+1}}</td>
+      <td class="col-xs-2">{{teamData.team}}</td>
+      <td class="col-xs-2">{{teamData.average.toFixed(2)}}</td>
+      <td class="col-xs-2">{{teamData.autonomous.totalPoints.toFixed(2)}}</td>
+			<td class="col-xs-2">{{teamData.stacking.totalPoints.toFixed(2)}}</td>
+			<td class="col-xs-2">{{teamData.capping.totalCapPoints.toFixed(2)}}</td>
+			<td class="col-xs-2">{{teamData.capping.totalLitterPoints.toFixed(2)}}</td>
+			<td class="col-xs-2">{{teamData.coop.totalPoints.toFixed(2)}}</td>
     </tr>
   </tbody>
 </table>

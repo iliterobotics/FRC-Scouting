@@ -1,7 +1,7 @@
 // grab the Match model
 var mongoose = require("mongoose");
 var Match = mongoose.model('Match');
-//var RecycleRushMatchData = mongoose.model('RecycleRushTeamData');
+var RecycleRushMatchData = mongoose.model('RecycleRushTeamData');
 
 module.exports = function(app) {
 
@@ -10,7 +10,20 @@ module.exports = function(app) {
 			if (docs.length){
 				cb('match ' + match._id + ' already exists',null);
 			}else{
-
+				
+				//add a match data entry for every match
+				for(var allianceIndex = 0; allianceIndex < match.alliances.length; allianceIndex++) {
+					for(var teamIndex = 0; teamIndex < match.alliances[allianceIndex].teams.length; teamIndex++) {
+						var matchData = new RecycleRushMatchData({ team: match.alliances[allianceIndex].teams[teamIndex], match: match._id });
+						
+						matchData.save(function(err) {
+							if(err) {
+								console.log(err);
+							}
+						});
+					}
+				}
+				
 				match.save(function(err){
 					cb(err,match);
 				});
