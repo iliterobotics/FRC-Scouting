@@ -1,7 +1,9 @@
 //Angular Controller for team information
-angular.module('ilite.common').controller('TeamMatchDataCtrl', ['$scope','$routeParams','$location','TeamMatchData', function($scope,$routeParams,$location,TeamMatchData) {
+angular.module('ilite.common').controller('TeamMatchDataCtrl', ['$scope','$routeParams','$location','$http','TeamMatchData','auth','OfflineService', function($scope,$routeParams,$location,$http,TeamMatchData,auth,OfflineService) {
   this.teamNumber = $routeParams.teamNumber;
 	this.matchNumber = $routeParams.matchNumber;
+	
+	$http.defaults.headers.common.Authorization = 'Bearer '+auth.getToken();
 	
 	//default model
 	this.matchData = new TeamMatchData({
@@ -45,7 +47,7 @@ angular.module('ilite.common').controller('TeamMatchDataCtrl', ['$scope','$route
 		},
 		//error
 		function( error ){
-			alert(error);
+			$scope.TeamMatchDataCtrl.error = err;
 		}
 	);
 	
@@ -63,6 +65,15 @@ angular.module('ilite.common').controller('TeamMatchDataCtrl', ['$scope','$route
 			this.matchData.$update(function() {
 				//navigate back to the listings
 				$location.path("/teams/" + $scope.TeamMatchDataCtrl.teamNumber);
+			}, function(err) {
+				if(err.status === 0) {
+					console.log('error updating team match data...adding to offline retry');
+					OfflineService.updateDataRequest('TeamMatchData', $scope.TeamMatchDataCtrl.matchData._id, $scope.TeamMatchDataCtrl.matchData, 'update');
+					$location.path("/teams/" + $scope.TeamMatchDataCtrl.teamNumber);
+				} else {
+					$scope.TeamMatchDataCtrl.error = err;
+					console.log(err);
+				}
 			});
 		} else {
 			console.log('saving match data entry',this.matchData.team,this.matchData.match);
@@ -71,6 +82,15 @@ angular.module('ilite.common').controller('TeamMatchDataCtrl', ['$scope','$route
 			this.matchData.$save(function() {
 				//navigate back to the listings
 				$location.path("/teams/" + $scope.TeamMatchDataCtrl.teamNumber);
+			}, function(err) {
+				if(err.status === 0) {
+					console.log('error saving team match data...adding to offline retry');
+					OfflineService.updateDataRequest('TeamMatchData', $scope.TeamMatchDataCtrl.matchData._id, $scope.TeamMatchDataCtrl.matchData, 'save');
+					$location.path("/teams/" + $scope.TeamMatchDataCtrl.teamNumber);
+				} else {
+					$scope.TeamMatchDataCtrl.error = err;
+					console.log(err);
+				}
 			});
 		}
 	}

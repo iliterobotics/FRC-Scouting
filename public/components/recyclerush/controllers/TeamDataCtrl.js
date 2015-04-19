@@ -1,7 +1,12 @@
 //Angular Controller for team information
-angular.module('ilite.common').controller('TeamDataCtrl', ['$scope','$routeParams','$location','Match','TeamMatchData', function($scope,$routeParams,$location,Match,TeamMatchData) {
+angular.module('ilite.common').controller('TeamDataCtrl', ['$scope','$routeParams','$location','$http','Match','TeamMatchData', 'auth', 'OfflineService', function($scope,$routeParams,$location,$http,Match,TeamMatchData, auth, OfflineService) {
+	
+	$http.defaults.headers.common.Authorization = 'Bearer '+auth.getToken();
+	
   this.teamNumber = $routeParams.teamNumber;
 
+	var teamSummaryStorageKey = 'ilite-team-summary';
+	
 	TeamMatchData.get({ teamId: this.teamNumber }).$promise.then(
 		//success
 		function( retrievedTeamData ){
@@ -10,7 +15,9 @@ angular.module('ilite.common').controller('TeamDataCtrl', ['$scope','$routeParam
 		},
 		//error
 		function( error ){
-			alert(error);
+			//load from cache
+			var teamSummary = OfflineService.getOfflineData(teamSummaryStorageKey + '-' + $scope.TeamDataCtrl.teamNumber);
+			
 		}
 	);
 	

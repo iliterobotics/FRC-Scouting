@@ -1,13 +1,26 @@
 //Angular Controller for teams listing
-angular.module('ilite.common').controller('TeamListingCtrl', ['$scope','$location','$http','Team','auth', function($scope,$location,$http,Team,auth) {
+angular.module('ilite.common').controller('TeamListingCtrl', ['$scope','$location','$http','$interval','Team','auth','OfflineService', function($scope,$location,$http,$interval,Team,auth,OfflineService) {
   
 	$http.defaults.headers.common.Authorization = 'Bearer '+auth.getToken();
-	console.log(auth.getToken());
-  $scope.teamList = Team.query();
   
-  this.query = function () {
-    return Team.query();
-  };
+	var teamListStorageKey = 'ilite-team-listing';
+	
+	var getTeamList = function() {
+		Team.query().$promise.then(function(response) {
+//			console.log(response);
+			OfflineService.updateOfflineData(teamListStorageKey, response);
+			$scope.teamList = response;
+		}, function(err) {
+			console.log('could not reach server, loading cached team listing');
+			$scope.teamList = OfflineService.getOfflineData(teamListStorageKey);
+		});
+	}
+	
+	getTeamList();
+	if(OfflineService.getRefreshInterval().value > 0) {
+  	var teamRefresh = $interval(getTeamList, OfflineService.getRefreshInterval().value * 1000);
+		$scope.$on('$destroy', function () { $interval.cancel(teamRefresh); });
+	}
 
   this.viewTeam = function(teamNumber) {
     $location.path("/teams/"+teamNumber);
@@ -18,12 +31,14 @@ angular.module('ilite.common').controller('TeamListingCtrl', ['$scope','$locatio
     team.$delete(
       //success
       function( value ){
-        $scope.teamList= Team.query();
+        getTeamList();
       },
       //error
       function( error ){
-          alert(error);
-       }
+				if(error.status === 0) {
+        	OfflineService.updateDataRequest('TeamListing','listing',team,'delete');
+				}
+      }
     );
   }
   

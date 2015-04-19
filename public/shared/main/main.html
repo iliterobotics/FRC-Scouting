@@ -1,4 +1,29 @@
-<!--
-<div ng-hide="isLoggedIn()">
-  <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
-</div>-->
+<h3>Welcome to ILITE Scouting</h3>
+<h5>Refresh Interval</h5>
+<h6 class="text-warning">Warning: Faster refresh will affect battery life</h6>
+<select class="form-control" ng-options="refreshOption as refreshOption.title for refreshOption in MainCtrl.refreshOptions track by refreshOption.value"  ng-model="MainCtrl.refreshInterval" ng-change="MainCtrl.updateRefreshRate()">
+</select>
+
+<table class="table table-striped table-hover">
+      <caption>Pending Requests</caption>
+      <thead>
+        <tr>
+          <td class="col-xs-10">Request</td>
+          <td class="col-xs-2">Action</td>
+        </tr>
+      </thead>
+      <tbody>
+				<tr ng-repeat="request in MainCtrl.pendingRequests">
+					<td class="col-xs-10">{{request}}</td>
+					<td class="col-xs-2">
+						<button type="button" class="btn btn-danger" ng-click="MainCtrl.deleteRequest(request)">
+              Delete
+            </button>
+					</td>
+				</tr>
+	</tbody>
+</table>
+
+<button type="button" class="btn btn-success" ng-click="MainCtrl.execPending()">
+	Sync to Server
+</button>

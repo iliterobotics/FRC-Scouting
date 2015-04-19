@@ -29,6 +29,11 @@ angular.module('ilite.common').config(function($routeProvider, $locationProvider
         controller  : 'MainCtrl'
     })
 	
+		.when('/settings', {
+        templateUrl : 'shared/main/main.html',
+        controller  : 'MainCtrl'
+    })
+	
 		//auth
 		.when('/login', {
         templateUrl : 'shared/auth/login.html',

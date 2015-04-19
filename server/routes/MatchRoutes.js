@@ -116,15 +116,17 @@ module.exports = function(app, auth) {
         res.send(err);
       } else {
         console.log('removing match', match);
-        match.remove(function (err) {
-          if (!err) {
-            console.log("removed match", match._id);
-            res.send('');
-          } else {
-            console.log(err);
-            res.send(err);
-          }
-        });
+				if(match) {
+					match.remove(function (err) {
+						if (!err) {
+							console.log("removed match", match._id);
+							res.send('');
+						} else {
+							console.log(err);
+							res.send(err);
+						}
+					});
+				}
       }
     });
   });

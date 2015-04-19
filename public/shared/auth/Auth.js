@@ -13,7 +13,7 @@ angular.module('ilite.common').factory('auth', ['$http', '$window', function($ht
 		var token = auth.getToken();
 
 		if(token){
-			var payload = JSON.parse($window.atob(token.split('.')[1]));
+			var payload = angular.fromJson($window.atob(token.split('.')[1]));
 
 			return payload.exp > Date.now() / 1000;
 		} else {
@@ -24,7 +24,7 @@ angular.module('ilite.common').factory('auth', ['$http', '$window', function($ht
 	auth.currentUser = function(){
 		if(auth.isLoggedIn()){
 			var token = auth.getToken();
-			var payload = JSON.parse($window.atob(token.split('.')[1]));
+			var payload = angular.fromJson($window.atob(token.split('.')[1]));
 
 			return payload.username;
 		}
@@ -68,5 +68,10 @@ function($scope, $location, auth){
     }).then(function(){
       $location.path("/");
     });
+  };
+	
+	$scope.logOut = function(){
+    auth.logOut();
+      $location.path("/");
   };
 }]);

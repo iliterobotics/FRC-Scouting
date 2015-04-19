@@ -1,5 +1,5 @@
 //Angular Controller for team information
-angular.module('ilite.common').controller('TeamInputCtrl', ['$scope','$routeParams','$location','$http','Team','auth', function($scope,$routeParams,$location,$http,Team,auth) {
+angular.module('ilite.common').controller('TeamInputCtrl', ['$scope','$routeParams','$location','$http','Team','auth','OfflineService', function($scope,$routeParams,$location,$http,Team,auth,OfflineService) {
   this.title = 'Create Team';
   
 	$http.defaults.headers.common.Authorization = 'Bearer '+auth.getToken();
@@ -14,7 +14,7 @@ angular.module('ilite.common').controller('TeamInputCtrl', ['$scope','$routePara
       },
       //error
       function( error ){
-          alert(error);
+          $scope.TeamInputCtrl.error = err;
        }
     );
   }
@@ -31,10 +31,22 @@ angular.module('ilite.common').controller('TeamInputCtrl', ['$scope','$routePara
     }
     
     //save the new entry
-    team.$save(function() {
+		team.execRequest = team.$save;
+    team.execRequest(function() {
       //navigate back to the listings
       $location.path("/teamsListing");
-    });
+    },
+		function(err) {
+//			console.log('error saving...adding to offline retry', err);
+			if(err.status === 0) {
+				console.log('error saving team...adding to offline retry');
+				OfflineService.updateDataRequest('Team', team._id, team, 'save');
+				$location.path("/teamsListing");
+			} else {
+				$scope.TeamInputCtrl.error = err;
+				console.log(err);
+			}
+		});
     
     console.log(team);
   };

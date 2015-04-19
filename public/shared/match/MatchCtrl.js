@@ -1,9 +1,27 @@
 //Angular Controller for matches
-angular.module('ilite.common').controller('MatchCtrl', ['$scope','$location','$http','Match','auth', function($scope,$location,$http,Match,auth) {
-  
-  $scope.matches = Match.query();
-  
+angular.module('ilite.common').controller('MatchCtrl', ['$scope','$rootScope','$location','$http','$interval','Match','auth','OfflineService', function($scope,$rootScope,$location,$http,$interval,Match,auth,OfflineService) {	
+	
+	var matchStorageKey = 'ilite-matches';
 	$http.defaults.headers.common.Authorization = 'Bearer '+auth.getToken();
+	
+	var loadMatches = function() {
+		Match.query().$promise.then(
+			function(response) {
+				$scope.matches = response;
+				OfflineService.updateOfflineData(matchStorageKey, response);
+			},
+			function(err) {
+				console.log('could not reach server, loading cached match listing');
+				$scope.matches = OfflineService.getOfflineData(matchStorageKey);
+			}
+		)
+	};
+	
+	loadMatches();
+	if(OfflineService.getRefreshInterval().value > 0) {
+  	var matchRefresh = $interval(getTeamList, OfflineService.getRefreshInterval().value * 1000);
+		$scope.$on('$destroy', function () { $interval.cancel(matchRefresh); });
+	}
 	
 	this.selectMatch = function(matchId) {
 		if(!$scope.selectedMatchId) {
@@ -26,7 +44,14 @@ angular.module('ilite.common').controller('MatchCtrl', ['$scope','$location','$h
 				$scope.matches = Match.query();
 			},
 			function(err) {
-				console.log(angular.toJson(err));
+				if(err.status === 0) {
+					console.log('error deleting match...adding to offline retry');
+					OfflineService.updateDataRequest('Match', $scope.selectedMatchId, Match, 'delete', { matchId : $scope.selectedMatchId});
+					$scope.selectedMatchId = null;
+				} else {
+					$scope.MatchCtrl.error = err;
+					console.log(err);
+				}
 			});
 	};
 	
@@ -35,8 +60,10 @@ angular.module('ilite.common').controller('MatchCtrl', ['$scope','$location','$h
   
 }]);
 
-angular.module('ilite.common').controller('MatchEditCtrl', ['$scope','$location','$routeParams','Match', function($scope,$location,$routeParams,Match) {
+angular.module('ilite.common').controller('MatchEditCtrl', ['$scope','$location','$routeParams','$http','Match','OfflineService','auth', function($scope,$location,$routeParams,$http,Match,OfflineService,auth) {
   
+	$http.defaults.headers.common.Authorization = 'Bearer '+auth.getToken();
+	
 	if($routeParams.id) {
     Match.get({ matchId: $routeParams.id }).$promise.then(
       //success
@@ -53,11 +80,7 @@ angular.module('ilite.common').controller('MatchEditCtrl', ['$scope','$location'
 				$scope.MatchEditCtrl.blue2 = retrievedMatch.alliances[1].teams[1];
 				$scope.MatchEditCtrl.blue3 = retrievedMatch.alliances[1].teams[2];
 				$scope.MatchEditCtrl.blueScore = retrievedMatch.alliances[1].score;
-      },
-      //error
-      function( error ){
-          alert(error);
-       }
+      }
     );
   }
 	
@@ -89,25 +112,35 @@ angular.module('ilite.common').controller('MatchEditCtrl', ['$scope','$location'
     //remove the old entry
     if($routeParams.id) {
       
-      Match.delete({matchId: $routeParams.id}).$promise.then(function(res) {
-				//save the new entry
-				match.$save(function() {
-					//navigate back to the listings
-					$location.path("/matches");
-				});
+			match.$update(function(res) {
+				$location.path("/matches");
 			},
 			function(err) {
-				//save the new entry
-				match.$save(function() {
-					//navigate back to the listings
+				if(err.status === 0) {
+					console.log('error saving match...adding to offline retry');
+					OfflineService.updateDataRequest('Match', match._id, match, 'update');
 					$location.path("/matches");
-				});
+				} else {
+					$scope.MatchEditCtrl.error = err;
+					console.log(err);
+				}
 			});
+			
     } else {
 			//save the new entry
 			match.$save(function() {
 				//navigate back to the listings
 				$location.path("/matches");
+			},
+			function(err) {
+				if(err.status === 0) {
+					console.log('error saving match...adding to offline retry');
+					OfflineService.updateDataRequest('Match', match._id, match, 'save');
+					$location.path("/matches");
+				} else {
+					$scope.MatchEditCtrl.error = err;
+					console.log(err);
+				}
 			});
 		}
     

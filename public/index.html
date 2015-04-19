@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="iliteApp">
+<html lang="en" manifest="/manifest.appcache" ng-app="iliteApp">
   <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <!--    <base href="/">-->
@@ -21,7 +21,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">ILITE</a>
+        <a class="navbar-brand" href="#settings">ILITE</a>
       </div>
 
       <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
@@ -30,9 +30,10 @@
           <li><a href="#rankings">Rankings</a></li>
           <li><a href="#matches">Matches</a></li>
           <li><a href="#teamsListing">Teams</a></li>
-					<li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
-					<li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
-					<li ng-hide="isLoggedIn()"><a href="#login">Log In</a></li>
+					<li ng-show="MainCtrl.isLoggedIn()"><a>{{ MainCtrl.currentUser() }}</a></li>
+					<li ng-show="MainCtrl.isLoggedIn()"><a href="#" ng-click="MainCtrl.logOut()">Log Out</a></li>
+					<li ng-hide="MainCtrl.isLoggedIn()"><a href="#login">Log In</a></li>
+					<li ng-show="MainCtrl.isLoggedIn()"><a href="#settings">Settings</a></li>
 <!--					<li ng-hide="isLoggedIn()"><a href="#register">Register</a></li>-->
         </ul>
       </div>
@@ -68,6 +69,9 @@
     
     <!-- app entrance point -->
     <script type="application/javascript" src="shared/app.js"></script>
+		
+		<!-- offline handler -->
+		<script type="application/javascript" src="shared/offline/OfflineService.js"></script>
 		
 		<!-- Auth -->
 		<script type="application/javascript" src="shared/auth/Auth.js"></script>

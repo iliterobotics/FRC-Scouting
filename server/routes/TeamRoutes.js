@@ -46,7 +46,7 @@ module.exports = function(app, auth) {
     // use mongoose to save the team...
     teamRoutes.saveTeam(new Team(req.body), function(err, team) {
       if(err) {
-        res.send(err);
+        res.status(500).send(err);
       } else {
         res.send(team);
       }
@@ -61,19 +61,19 @@ module.exports = function(app, auth) {
       // if there is an error retrieving, send the error. 
       // nothing after res.send(err) will execute
       if (err) {
-        res.send(err);
-      }
-
-      res.json(teams); // return all teams in JSON format
+        res.status(500).send(err);
+      } else {
+				res.send(teams);
+			}
     });
   });
   
   //individual team-level CRUD
-  app.route('/v1/teams/:id',auth).get(function (req, res){
+  app.route('/v1/teams/:id').all(auth).get(function (req, res){
 
     Team.findById(req.params.id, function (err, team) {
       if(err) {
-        res.send(err);
+        res.status(500).send(err);
       } else {
         res.send(team);
       }
@@ -83,7 +83,7 @@ module.exports = function(app, auth) {
 
     Team.findByIdAndUpdate(req.params.id, req.body, function (err, team) {
     if (err) {
-      res.send(err);
+      res.status(500).send(err);
     } else {
       res.send(team);
     }
@@ -98,7 +98,7 @@ module.exports = function(app, auth) {
 		// use mongoose to save the team...
 		teamRoutes.saveTeam(newTeam, function(err, team) {
 			if(err) {
-				res.send(err);
+				res.status(500).send(err);
 			} else {
 				res.send(team);
 			}
@@ -117,7 +117,7 @@ module.exports = function(app, auth) {
             res.send('');
           } else {
             console.log(err);
-            res.send(err);
+            res.status(500).send('Could not delete team ' + team._id);
           }
         });
       }

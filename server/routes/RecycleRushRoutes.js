@@ -46,7 +46,7 @@ module.exports = function(app, auth) {
     });
   })
   .put(function (req, res){
-
+		console.log('received put request for RR matchData', req.body._id, req.body.team, req.body.match);
     RecycleRushTeamData.findByIdAndUpdate(req.body._id, req.body, function (err, teamData) {
 			if (err) {
 				res.send(err);

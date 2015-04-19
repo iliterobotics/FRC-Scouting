@@ -1,4 +1,7 @@
 <div class="container-fluid">
+	<div ng-show="TeamInputCtrl.error" class="alert alert-danger row">
+    <span>{{ TeamInputCtrl.error.data.message }}</span>
+  </div>
   <div class="row">
     <h3>{{TeamInputCtrl.title}}</h3>
   </div>
