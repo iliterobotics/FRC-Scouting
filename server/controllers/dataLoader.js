@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var XLSX = require('xlsx');
 var User = mongoose.model('User');
 var Team = mongoose.model('Team');
+var Match = mongoose.model('Match');
 var RecycleRushTeamData = mongoose.model('RecycleRushTeamData');
 
 module.exports = {
@@ -48,6 +49,7 @@ module.exports = {
 			var teamData = new RecycleRushTeamData({
 				team: teamRow.v,
 				match: -divisionSheet['E' + rowId].v,
+				completed: true,
 				autonomous: {
 					toteSet: false,
 					numCans: 0,
@@ -64,7 +66,7 @@ module.exports = {
 			
 			teamToAdd.save(function(err){
 				if (err) {
-					console.log(err);
+//					console.log(err);
 				}
 			});
 			
@@ -107,6 +109,56 @@ module.exports = {
 			userRow = userSheet[colId + rowId];
 		}
 		
+	},
+	
+	matchImport: function(file, type) {
+		if(type === 'xlsx') {
+			var matchWorkbook = XLSX.readFile(file);
+
+			var matchSheet = matchWorkbook.Sheets['matches'];
+
+			var rowId = 2;
+			var matchTime = 'A';
+			var matchId = 'B';
+
+			var matchRow = matchSheet[matchId + rowId];
+
+			while(matchRow) {
+				
+				var matchToAdd = new Match(
+					{ 
+						_id: matchRow.v,
+						dateTime: matchSheet[matchTime + rowId].v,
+						alliances: [{
+							name: 'Red',
+							teams: [
+								matchSheet['C' + rowId].v,
+								matchSheet['D' + rowId].v,
+								matchSheet['E' + rowId].v,
+							],
+							score: 0,
+						},
+						{
+							name: 'Blue',
+							teams: [
+								matchSheet['F' + rowId].v,
+								matchSheet['G' + rowId].v,
+								matchSheet['H' + rowId].v,
+							],
+							score: 0,
+						}]
+					 });
+
+				Match.saveMatch(matchToAdd, function (err){
+					if(err){ console.log(err); }
+				});
+
+				rowId++;
+				matchRow = matchSheet[matchId + rowId];
+			}
+		} else if(type === 'csv') {
+			
+		}
 	}
 	
 };

@@ -7,6 +7,7 @@ var RecycleRushTeamDataSchema = new mongoose.Schema({
   match: { 
     type: Number, ref: 'Match' 
   },
+	completed: {type: Boolean, default: false},
 	author: String,
 	autonomous: {
     toteSet: {type: Boolean, default: false},
@@ -67,6 +68,7 @@ var getSummary = function(teamDataEntries) {
 			summaryData = {
 				team: dataEntry.team,
 				total: 0,
+				completedMatches: 0,
 				autonomous: {
 					toteSet: 0,
 					numCans: 0,
@@ -186,7 +188,8 @@ var getSummary = function(teamDataEntries) {
 		summaryData.coop.totalPoints += coopScore;
 
 		//matches[] formatting:
-
+		summaryData.completedMatches += dataEntry.completed;
+		
 		var match = {
 			id: dataEntry.match,
 			score: autoScore + toteScore + capScore + litterScore + coopScore,
@@ -200,6 +203,7 @@ var getSummary = function(teamDataEntries) {
 		summaryData.matches.push(match);
 		
 		summaryData.total += autoScore + toteScore + capScore + litterScore + coopScore;
+		
 	}
 	
 	return teamSummaries;

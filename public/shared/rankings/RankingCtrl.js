@@ -20,7 +20,7 @@ angular.module('ilite.common').controller('RankingCtrl', ['$scope','$location','
 					if(retrievedTeamData[teamId].team) {
 						OfflineService.updateOfflineData(teamSummaryStorageKey + '-' + teamId, retrievedTeamData[teamId]);
 	//					console.log(retrievedTeamData[teamId]);
-						retrievedTeamData[teamId].average = retrievedTeamData[teamId].total/retrievedTeamData[teamId].matches.length;
+						retrievedTeamData[teamId].average = retrievedTeamData[teamId].total/retrievedTeamData[teamId].completedMatches;
 						$scope.RankingCtrl.teamDataList.push(retrievedTeamData[teamId]);
 					}
 				}
@@ -36,7 +36,7 @@ angular.module('ilite.common').controller('RankingCtrl', ['$scope','$location','
 					var teamId = teamListing[index]._id;
 					var teamSummary = OfflineService.getOfflineData(teamSummaryStorageKey + '-' + teamId);
 					if(teamSummary.team) {
-						teamSummary.average = teamSummary.total/teamSummary.matches.length;
+						teamSummary.average = teamSummary.total/teamSummary.completedMatches;
 						$scope.RankingCtrl.teamDataList.push(teamSummary);
 					}
 				}

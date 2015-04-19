@@ -5,31 +5,31 @@ var RecycleRushMatchData = mongoose.model('RecycleRushTeamData');
 
 module.exports = function(app, auth) {
 
-  this.saveMatch = function(match, cb) {
-    Match.find({_id : match._id}, function (err, docs) {
-			if (docs.length){
-				cb('match ' + match._id + ' already exists',null);
-			}else{
-				
-				//add a match data entry for every match
-				for(var allianceIndex = 0; allianceIndex < match.alliances.length; allianceIndex++) {
-					for(var teamIndex = 0; teamIndex < match.alliances[allianceIndex].teams.length; teamIndex++) {
-						var matchData = new RecycleRushMatchData({ team: match.alliances[allianceIndex].teams[teamIndex], match: match._id });
-						
-						matchData.save(function(err) {
-							if(err) {
-								console.log(err);
-							}
-						});
-					}
-				}
-				
-				match.save(function(err){
-					cb(err,match);
-				});
-			}
-    });
-  };
+//  this.saveMatch = function(match, cb) {
+//    Match.find({_id : match._id}, function (err, docs) {
+//			if (docs.length){
+//				cb('match ' + match._id + ' already exists',null);
+//			}else{
+//				
+//				//add a match data entry for every match
+//				for(var allianceIndex = 0; allianceIndex < match.alliances.length; allianceIndex++) {
+//					for(var teamIndex = 0; teamIndex < match.alliances[allianceIndex].teams.length; teamIndex++) {
+//						var matchData = new RecycleRushMatchData({ team: match.alliances[allianceIndex].teams[teamIndex], match: match._id });
+//						
+//						matchData.save(function(err) {
+//							if(err) {
+//								console.log(err);
+//							}
+//						});
+//					}
+//				}
+//				
+//				match.save(function(err){
+//					cb(err,match);
+//				});
+//			}
+//    });
+//  };
   
   var matchRoutes = this;
   
@@ -38,7 +38,7 @@ module.exports = function(app, auth) {
   app.route('/v1/match').all(auth).post(function(req, res) {
     console.log("Attempting to add match",req.body);
     // use mongoose to get all matches in the database
-    matchRoutes.saveMatch(new Match(req.body), function(err, match) {
+    Match.saveMatch(new Match(req.body), function(err, match) {
       if(err) {
         res.send(err);
       } else {
@@ -101,7 +101,7 @@ module.exports = function(app, auth) {
 	.post(function(req, res) {
     console.log("Attempting to add match",req.body);
     // use mongoose to get all matches in the database
-    matchRoutes.saveMatch(new Match(req.body), function(err, match) {
+    Match.saveMatch(new Match(req.body), function(err, match) {
       if(err) {
         res.send(err);
       } else {

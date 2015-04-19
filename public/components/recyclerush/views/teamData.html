@@ -18,7 +18,7 @@
       </thead>
       <tbody>
 				<tr>
-					<td class="col-xs-2">{{(TeamDataCtrl.teamData.total/TeamDataCtrl.teamData.matches.length).toFixed(2)}}</td>
+					<td class="col-xs-2">{{(TeamDataCtrl.teamData.total/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
 					<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.totalPoints.toFixed(2)}}</td>
 					<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.totalPoints.toFixed(2)}}</td>
 					<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.totalCapPoints.toFixed(2)}}</td>
@@ -45,10 +45,10 @@
           </thead>
           <tbody>
 						<tr>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.toteSet/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.numCans/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.numTotes/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.isInAutoZone/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.toteSet/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.numCans/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.numTotes/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.isInAutoZone/TeamDataCtrl.teamData.completedMatches}}</td>
 							<td class="col-xs-2">No</td>
 						</tr>
           </tbody>
@@ -69,11 +69,11 @@
           </thead>
           <tbody>
 						<tr>
-							<td class="col-xs-2">{{(TeamDataCtrl.teamData.stacking.numHP + TeamDataCtrl.teamData.stacking.numLF)/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{(TeamDataCtrl.teamData.stacking.numHP + TeamDataCtrl.teamData.stacking.numLF)/TeamDataCtrl.teamData.completedMatches}}</td>
 							<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.height.toFixed(2)/(TeamDataCtrl.teamData.stacking.numHP + TeamDataCtrl.teamData.stacking.numLF)}}</td>
 							<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.maxHeight}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.numHP/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.numLF/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.numHP/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.numLF/TeamDataCtrl.teamData.completedMatches}}</td>
 						</tr>
           </tbody>
         </table>
@@ -92,10 +92,10 @@
           </thead>
           <tbody>
 						<tr>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.numCaps/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.numCaps/TeamDataCtrl.teamData.completedMatches}}</td>
 							<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.height.toFixed(2)/TeamDataCtrl.teamData.capping.numCaps}}</td>
 							<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.maxHeight}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.litter/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.litter/TeamDataCtrl.teamData.completedMatches}}</td>
 						</tr>
           </tbody>
         </table>
@@ -114,11 +114,11 @@
           </thead>
           <tbody>
 						<tr>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.efficiency/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.cansAttempted/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.cansCaptured/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.autonomous/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.battle/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.efficiency/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.cansAttempted/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.cansCaptured/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.autonomous/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.burglar.battle/TeamDataCtrl.teamData.completedMatches}}</td>
 						</tr>
           </tbody>
         </table>
@@ -136,10 +136,10 @@
           </thead>
           <tbody>
 						<tr>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.quantity/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.numCycles/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.toteCapacity/TeamDataCtrl.teamData.matches.length}}</td>
-							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.interferes/TeamDataCtrl.teamData.matches.length}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.quantity/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.numCycles/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.toteCapacity/TeamDataCtrl.teamData.completedMatches}}</td>
+							<td class="col-xs-2">{{TeamDataCtrl.teamData.ramp.interferes/TeamDataCtrl.teamData.completedMatches}}</td>
 						</tr>
           </tbody>
         </table>

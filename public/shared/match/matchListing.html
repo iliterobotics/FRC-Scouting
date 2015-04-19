@@ -5,6 +5,7 @@
 			<thead>
 				<tr ng-repeat="alliance in matches[0].alliances">
 					<td ng-show="$index == 0" class="col-xs-1" rowspan="{{matches[0].alliances.length}}">#</td>
+					<td ng-show="$index == 0" class="col-xs-3" rowspan="{{matches[0].alliances.length}}">Date</td>
 					<td class="col-xs-2" ng-repeat="team in alliance.teams">{{alliance.name}} {{$index + 1}}</td>
 					<td class="col-xs-2">Score</td>
 				</tr>
@@ -12,6 +13,7 @@
 			<tbody ng-repeat="match in matches |orderBy: '_id'" >
 				<tr ng-repeat="alliance in match.alliances" ng-click="MatchCtrl.selectMatch(match._id)">
 					<td ng-show="$index == 0" class="col-xs-1" rowspan="{{match.alliances.length}}" >{{match._id}}</td>
+					<td ng-show="$index == 0" class="col-xs-3" rowspan="{{matches[0].alliances.length}}">{{match.dateTime}}</td>
 					<td class="col-xs-2" ng-repeat="team in alliance.teams">{{team}}</td>
 					<td class="col-xs-2">{{alliance.score}}</td>
 				</tr>
