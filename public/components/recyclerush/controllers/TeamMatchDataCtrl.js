@@ -46,7 +46,7 @@ angular.module('ilite.common').controller('TeamMatchDataCtrl', ['$scope','$route
 			}
 		},
 		//error
-		function( error ){
+		function( err ){
 			$scope.TeamMatchDataCtrl.error = err;
 		}
 	);
@@ -104,7 +104,7 @@ angular.module('ilite.common').controller('TeamMatchDataCtrl', ['$scope','$route
 			}, function(err) {
 				if(err.status === 0) {
 					console.log('error saving team match data...adding to offline retry');
-					OfflineService.updateDataRequest('TeamMatchData', $scope.TeamMatchDataCtrl.matchData._id, $scope.TeamMatchDataCtrl.matchData, 'save');
+					OfflineService.updateDataRequest('TeamMatchData', $scope.TeamMatchDataCtrl.matchData.team + '-' + $scope.TeamMatchDataCtrl.matchData.match, $scope.TeamMatchDataCtrl.matchData, 'save');
 					$location.path("/teams/" + $scope.TeamMatchDataCtrl.teamNumber);
 				} else {
 					$scope.TeamMatchDataCtrl.error = err;

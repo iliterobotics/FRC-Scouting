@@ -47,7 +47,7 @@ module.exports = function(app, auth) {
   })
   .put(function (req, res){
 		console.log('received put request for RR matchData', req.body._id, req.body.team, req.body.match);
-    RecycleRushTeamData.findByIdAndUpdate(req.body._id, req.body, function (err, teamData) {
+    RecycleRushTeamData.findByIdAndUpdate(req.body._id, req.body, {upsert: true}, function (err, teamData) {
 			if (err) {
 				res.send(err);
 			} else {
@@ -57,8 +57,11 @@ module.exports = function(app, auth) {
   })
 	.post(function (req, res){
 		var teamData = new RecycleRushTeamData(req.body);
+		teamData._id = (teamData.team * 10000 + teamData.match);
+		console.log('received post request for RR matchData', req.body._id, req.body.team, req.body.match);
 		teamData.auther = req.payload.username;
-    teamData.save(function(err){
+		
+    RecycleRushTeamData.findByIdAndUpdate(teamData._id, teamData, {upsert: true}, function (err, teamData) {
 			if (err) {
 				res.send(err);
 			} else {
