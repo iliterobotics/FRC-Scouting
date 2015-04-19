@@ -47,6 +47,7 @@ module.exports = {
 			}
 			
 			var teamData = new RecycleRushTeamData({
+				_id: (teamRow.v * 10000 + -divisionSheet['E' + rowId].v),
 				team: teamRow.v,
 				match: -divisionSheet['E' + rowId].v,
 				completed: true,

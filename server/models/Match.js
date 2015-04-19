@@ -28,7 +28,7 @@ MatchSchema.statics.saveMatch = function(match, cb) {
 				//add a match data entry for every match
 				for(var allianceIndex = 0; allianceIndex < match.alliances.length; allianceIndex++) {
 					for(var teamIndex = 0; teamIndex < match.alliances[allianceIndex].teams.length; teamIndex++) {
-						var matchData = new RecycleRushMatchData({ team: match.alliances[allianceIndex].teams[teamIndex], match: match._id });
+						var matchData = new RecycleRushMatchData({ _id: (match.alliances[allianceIndex].teams[teamIndex] * 10000 + match._id), team: match.alliances[allianceIndex].teams[teamIndex], match: match._id });
 						
 						matchData.save(function(err) {
 							if(err) {

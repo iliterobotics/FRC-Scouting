@@ -16,7 +16,7 @@ angular.module('ilite.common').controller('TeamDataCtrl', ['$scope','$routeParam
 		//error
 		function( error ){
 			//load from cache
-			var teamSummary = OfflineService.getOfflineData(teamSummaryStorageKey + '-' + $scope.TeamDataCtrl.teamNumber);
+			$scope.TeamDataCtrl.teamData = OfflineService.getOfflineData(teamSummaryStorageKey + '-' + $scope.TeamDataCtrl.teamNumber);
 			
 		}
 	);

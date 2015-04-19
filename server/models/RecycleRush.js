@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var RecycleRushTeamDataSchema = new mongoose.Schema({
+	_id: Number,
   team: { 
     type: Number, ref: 'Team' 
   },
