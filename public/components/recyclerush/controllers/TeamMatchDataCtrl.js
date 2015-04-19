@@ -78,6 +78,7 @@ angular.module('ilite.common').controller('TeamMatchDataCtrl', ['$scope','$route
 	}
 	
 	this.saveMatch = function() {
+		this.matchData.completed = true;
 		if(this.matchData._id) {
 			console.log('updating match data entry',this.matchData.team,this.matchData.match,this.matchData._id);
 			this.matchData.$update(function() {

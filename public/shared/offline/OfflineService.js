@@ -15,6 +15,11 @@ angular.module('ilite.common').service('OfflineService', ['$window', '$interval'
 	//object is persisted
 	//saveRequests.<localStorageKey> = { type: {SAVE/UPDATE/DELETE} };
 	var pendingRequests = angular.fromJson($window.localStorage.getItem(offlineStorageRequestsKey));
+	
+	if(!pendingRequests) {
+		pendingRequests = {};
+	}
+	
 	var poller = null;
 	
 	var offlineService = this;
