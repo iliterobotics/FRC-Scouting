@@ -18,7 +18,7 @@
       </thead>
       <tbody>
 				<tr>
-					<td class="col-xs-2">{{TeamDataCtrl.teamData.total.toFixed(2)/TeamDataCtrl.teamData.matches.length}}</td>
+					<td class="col-xs-2">{{(TeamDataCtrl.teamData.total/TeamDataCtrl.teamData.matches.length).toFixed(2)}}</td>
 					<td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.totalPoints.toFixed(2)}}</td>
 					<td class="col-xs-2">{{TeamDataCtrl.teamData.stacking.totalPoints.toFixed(2)}}</td>
 					<td class="col-xs-2">{{TeamDataCtrl.teamData.capping.totalCapPoints.toFixed(2)}}</td>

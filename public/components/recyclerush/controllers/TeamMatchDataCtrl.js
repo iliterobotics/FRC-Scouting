@@ -55,8 +55,26 @@ angular.module('ilite.common').controller('TeamMatchDataCtrl', ['$scope','$route
 		this.matchData.stacks.push({ height: 0, location: 'HP' });
 	}
 	
+	this.selectStack = function(idx) {
+		this.selectedStack = idx;
+	}
+	
+	this.deleteStack = function(idx) {
+		this.matchData.stacks.splice(idx,1);
+		this.selectedStack = null;
+	}
+	
 	this.addCap = function() {
 		this.matchData.caps.push({ height: 0, litter: false });
+	}
+	
+	this.selectCap = function(idx) {
+		this.selectedCap = idx;
+	}
+	
+	this.deleteCap = function(idx) {
+		this.matchData.caps.splice(idx,1);
+		this.selectedCap = null;
 	}
 	
 	this.saveMatch = function() {

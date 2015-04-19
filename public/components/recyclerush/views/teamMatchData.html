@@ -50,7 +50,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="stack in TeamMatchDataCtrl.matchData.stacks">
+            <tr ng-repeat="stack in TeamMatchDataCtrl.matchData.stacks" ng-click="TeamMatchDataCtrl.selectStack($index)">
               <td class="col-xs-1">{{$index}}</td>
               <td class="col-xs-2">
                 <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.stacks[$index].height">
@@ -77,8 +77,8 @@
           Add Stack
         </button>
 
-        <button type="button" class="btn btn-danger col-xs-6">
-          Delete Stack
+        <button type="button" class="btn btn-danger col-xs-6" ng-click="TeamMatchDataCtrl.deleteStack(TeamMatchDataCtrl.selectedStack)">
+          Delete Stack {{TeamMatchDataCtrl.selectedStack}}
         </button>
 
       </tab>
@@ -93,7 +93,7 @@
             </tr>
           </thead>
           <tbody>
-						<tr ng-repeat="cap in TeamMatchDataCtrl.matchData.caps">
+						<tr ng-repeat="cap in TeamMatchDataCtrl.matchData.caps" ng-click="TeamMatchDataCtrl.selectCap($index)">
 							<td class="col-xs-1">{{$index}}</td>
               <td class="col-xs-4">
                 <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.caps[$index].height">
@@ -120,8 +120,8 @@
           Add Cap
         </button>
 
-        <button type="button" class="btn btn-danger col-xs-6">
-          Delete Cap
+        <button type="button" class="btn btn-danger col-xs-6" ng-click="TeamMatchDataCtrl.deleteCap(TeamMatchDataCtrl.selectedCap)">
+          Delete Cap {{TeamMatchDataCtrl.selectedCap}}
         </button>
 			</tab>
       <tab heading="Burglar">
