@@ -30,6 +30,7 @@
           <li><a href="#rankings">Rankings</a></li>
           <li><a href="#matches">Matches</a></li>
           <li><a href="#teamsListing">Teams</a></li>
+					<li><a href="#chairmansListing">Chairmans</a></li>
 					<li ng-show="MainCtrl.isLoggedIn()"><a>{{ MainCtrl.currentUser() }}</a></li>
 					<li ng-show="MainCtrl.isLoggedIn()"><a href="#" ng-click="MainCtrl.logOut()">Log Out</a></li>
 					<li ng-hide="MainCtrl.isLoggedIn()"><a href="#login">Log In</a></li>
@@ -81,6 +82,7 @@
     <!-- Services -->
     <script type="application/javascript" src="shared/teams/TeamService.js"></script>
     <script type="application/javascript" src="shared/match/MatchService.js"></script>
+		<script type="application/javascript" src="shared/chairmans/ChairmansService.js"></script>
 		<script type="application/javascript" src="components/recyclerush/services/TeamMatchDataService.js"></script>
     
     <!-- Controllers -->
@@ -89,6 +91,7 @@
     <script type="application/javascript" src="shared/teams/TeamInputCtrl.js"></script>
     <script type="application/javascript" src="shared/rankings/RankingCtrl.js"></script>
     <script type="application/javascript" src="shared/match/MatchCtrl.js"></script>
+		<script type="application/javascript" src="shared/chairmans/ChairmansCtrl.js"></script>
 
 		<script type="application/javascript" src="components/recyclerush/controllers/TeamDataCtrl.js"></script>
 		<script type="application/javascript" src="components/recyclerush/controllers/TeamMatchDataCtrl.js"></script>

@@ -94,7 +94,19 @@ angular.module('ilite.common').config(function($routeProvider, $locationProvider
 		.when('/teams/:teamNumber/editData', {
         templateUrl : 'components/recyclerush/views/teamMatchData.html',
         controller  : 'TeamMatchDataCtrl'
+    })
+	
+		// route for the selected team information
+    .when('/chairmansListing', {
+        templateUrl : 'shared/chairmans/chairmansListing.html',
+        controller  : 'ChairmansCtrl'
     });
+	
+		// route for the selected team information
+//    .when('/chairmans/:teamNumber', {
+//        templateUrl : 'components/recyclerush/views/teamData.html',
+//        controller  : 'TeamDataCtrl'
+//    })
   
     //TODO: add chairmans
   

@@ -9,12 +9,14 @@ var UserModel = require('./models/User');
 var TeamModel = require("./models/Team");
 var RecycleRushModel = require("./models/RecycleRush");
 var MatchModel = require("./models/Match");
+var ChairmansModel = require("./models/Chairmans");
 
 //mongoose model objects
 var User = mongoose.model('User');
 var Team = mongoose.model('Team');
 var Match = mongoose.model('Match');
 var TeamData = mongoose.model('RecycleRushTeamData');
+var Chairmans = mongoose.model('Chairmans');
 
 //auth
 var passport = require('passport');
@@ -72,10 +74,18 @@ Match.remove({}, function(err) {
 	dataLoader.matchImport('config/Matches.xlsx','xlsx');
 });
 
-var TeamDataRoutes = require("./routes/RecycleRushRoutes", auth);
+var TeamDataRoutes = require("./routes/RecycleRushRoutes");
 var teamDataRouter = new TeamDataRoutes(app, auth);
 
 TeamData.remove({}, function(err) { 
   console.log('RecycleRush Data removed');
 	dataLoader.simboticsDataImport('config/Team_1114_2015_Championship_Scouting_Database-2.xlsx', 'Carson');
+});
+
+var ChairmansRoutes = require("./routes/ChairmansRoutes");
+var chairmansRouter = new ChairmansRoutes(app, auth);
+
+Chairmans.remove({}, function(err) {
+	console.log('Chairmans data removed');
+	dataLoader.chairmansImport('config/Chairmans.xlsx',2015);
 });
