@@ -89,6 +89,7 @@
             <tr>
               <td class="col-xs-1">#</td>
               <td class="col-xs-4">Height</td>
+							<td class="col-xs-4">Style</td>
               <td class="col-xs-4">Litter?</td>
             </tr>
           </thead>
@@ -104,6 +105,12 @@
                   <option>4</option>
                   <option>5</option>
                   <option>6</option>
+                </select>
+              </td>
+							<td class="col-xs-4">
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.caps[$index].style">
+                  <option>Capped Stack</option>
+                  <option>Can at Start</option>
                 </select>
               </td>
               <td class="col-xs-4">
@@ -202,6 +209,44 @@
         <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.ramp.interferes">
           <option>true</option>
           <option>false</option>
+        </select>
+      </tab>
+			<tab heading="Coop">
+        <h5>Number of Totes</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.coop.numberTotes">
+					<option>0</option>
+          <option>1</option>
+          <option>2</option>
+					<option>3</option>
+        </select>
+
+        <h5>Contribution type</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.coop.contribution">
+					<option>Upper</option>
+          <option>Lower</option>
+        </select>
+
+        <h5>Result</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.coop.attempt">
+					<option>Not Attempted</option>
+          <option>Failed</option>
+          <option>Stack</option>
+          <option>Set</option>
+        </select>
+
+        <h5>Efficiency</h5>
+        <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.coop.efficiency">
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+					<option>9</option>
+					<option>10</option>
         </select>
       </tab>
     </tabset>

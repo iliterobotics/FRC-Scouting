@@ -22,6 +22,7 @@ var RecycleRushTeamDataSchema = new mongoose.Schema({
   }],
   caps: [{
     height: Number,
+		style: {type: String, default: 'Capped Stack'},
     litter: Boolean
   }],
   burglar: {
@@ -38,8 +39,9 @@ var RecycleRushTeamDataSchema = new mongoose.Schema({
     interferes: {type: Boolean, default: false}
   },
   coop: {
+		attempt: {type: String, default: 'Not Attempted'},
     numberTotes: {type: Number, default: 0},
-    type: {type: String, default: 'Upper'},
+    contribution: {type: String, default: 'Upper'},
     efficiency: {type: Number, default: 0}
   }
 });
@@ -88,7 +90,8 @@ var getSummary = function(teamDataEntries) {
 					height: 0,
 					maxHeight: 0,
 					litter: 0,
-					numCaps: 0,
+					cappedWithCan: 0,
+					startedWithCan: 0,
 					totalCapPoints: 0,
 					totalLitterPoints: 0
 				},
@@ -106,6 +109,9 @@ var getSummary = function(teamDataEntries) {
 					interferes: 0
 				},
 				coop: {
+					numStackSuccess: 0,
+					numSetSuccess: 0,
+					numAttempted: 0,
 					numberTotes: 0,
 					efficiency: 0,
 					totalPoints: 0
@@ -147,7 +153,7 @@ var getSummary = function(teamDataEntries) {
 		summaryData.stacking.totalPoints += toteScore;
 
 		//capping - loop through all contained caps
-		summaryData.capping.numCaps += dataEntry.caps.length;
+//		summaryData.capping.numCaps += dataEntry.caps.length;
 		var capScore = 0;
 		var litterScore = 0;
 
@@ -159,6 +165,10 @@ var getSummary = function(teamDataEntries) {
 
 			capScore += dataEntry.caps[capIndex].height * rcValue;
 			litterScore += dataEntry.caps[capIndex].litter * litterValue;
+			
+			summaryData.capping.cappedWithCan += (dataEntry.caps[capIndex].style === 'Capped Stack');
+			summaryData.capping.startedWithCan += (dataEntry.caps[capIndex].style === 'Can at Start');
+			
 		}
 		
 //		summaryData.capping.height = summaryData.capping.height / dataEntry.caps.length;
@@ -180,12 +190,15 @@ var getSummary = function(teamDataEntries) {
 		summaryData.ramp.interferes += dataEntry.ramp.interferes;
 
 		//coop
-		var isCoop = (dataEntry.coop.numberTotes > 0);
+		var coopMulit = (dataEntry.coop.attempt === 'Stack' ? 1 : (dataEntry.coop.attempt === 'Set' ? .5 : 0));
 		summaryData.coop.numberTotes += dataEntry.coop.numberTotes;
-		summaryData.coop.efficiency += isCoop;
-		summaryData.coop.interferes += dataEntry.coop.interferes;
+		summaryData.coop.numAttempted += (dataEntry.coop.attempt !== 'Not Attempted');
+		summaryData.coop.numSetSuccess += (dataEntry.coop.attempt === 'Set');
+		summaryData.coop.numStackSuccess += (dataEntry.coop.attempt === 'Stack');
+		
+		summaryData.coop.efficiency += coopMulit;
 
-		var coopScore = isCoop * coopStackValue;
+		var coopScore = coopMulit * coopStackValue;
 		summaryData.coop.totalPoints += coopScore;
 
 		//matches[] formatting:
