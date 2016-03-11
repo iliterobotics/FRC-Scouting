@@ -1,0 +1,194 @@
+<div class="container-fluid">
+    <div class="row">
+        <h3 class="col-xs-6 col-med-4 col-lg-2">Team {{TeamDataCtrl.teamNumber}}</h3>
+    </div>
+
+    <div class="row">
+        <table class="table table-striped table-hover">
+            <caption>Overall</caption>
+            <thead>
+                <tr>
+                    <td class="col-xs-2">Avg</td>
+                    <td class="col-xs-2">Auto</td>
+                    <td class="col-xs-2">Boulder</td>
+                    <td class="col-xs-2">Defenses</td>
+                    <td class="col-xs-2">Castle</td>
+                    <td class="col-xs-2">Tower</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-xs-2">{{(TeamDataCtrl.teamData.total/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                    <td class="col-xs-2">{{TeamDataCtrl.teamData.autonomous.totalPoints.toFixed(2)}}</td>
+                    <td class="col-xs-2">{{TeamDataCtrl.teamData.boulders.totalPoints.toFixed(2)}}</td>
+                    <td class="col-xs-2">{{TeamDataCtrl.teamData.defenses.totalPoints.toFixed(2)}}</td>
+                    <td class="col-xs-2">{{TeamDataCtrl.teamData.challenge.totalCastlePoints.toFixed(2)}}</td>
+                    <td class="col-xs-2">{{TeamDataCtrl.teamData.challenge.totalTowerPoints.toFixed(2)}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <tabset>
+            <tab heading="Auto">
+                <table class="table table-striped table-hover">
+                    <caption>Autonomous</caption>
+                    <thead>
+                        <tr>
+                            <td class="col-xs-3"># High Goal</td>
+                            <td class="col-xs-3"># Low Goal</td>
+                            <td class="col-xs-3"># Defenses</td>
+                            <td class="col-xs-3"># Reached Defense</td>
+                            <!--                            <td class="col-xs-2">Problematic</td>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-xs-3">{{(TeamDataCtrl.teamData.autonomous.numBouldersHigh/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-3">{{(TeamDataCtrl.teamData.autonomous.numBouldersLow/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-3">{{(TeamDataCtrl.teamData.autonomous.numDefenses/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-3">{{(TeamDataCtrl.teamData.autonomous.numReachedDefense/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <!--                            <td class="col-xs-2">No</td>-->
+                        </tr>
+                    </tbody>
+                </table>
+
+            </tab>
+            <tab heading="Boulder">
+                <table class="table table-striped table-hover">
+                    <caption>Boulder Averages Per Match</caption>
+                    <thead>
+                        <tr>
+                            <td class="col-xs-3"># High Goal</td>
+                            <td class="col-xs-3"># Low Goal</td>
+                            <td class="col-xs-3"># Missed High</td>
+                            <td class="col-xs-3"># Missed Low</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-xs-3">{{((TeamDataCtrl.teamData.boulders.numMadeHg)/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-3">{{(TeamDataCtrl.teamData.boulders.numMadeLg/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-3">{{((TeamDataCtrl.teamData.boulders.totalHg - TeamDataCtrl.teamData.boulders.numMadeHg)/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-3">{{((TeamDataCtrl.teamData.boulders.totalLg - TeamDataCtrl.teamData.boulders.numMadeLg)/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </tab>
+            <tab heading="Defenses">
+                <table class="table table-striped table-hover">
+                    <caption>Defense Averages Per Match</caption>
+                    <thead>
+                        <tr>
+                            <td class="col-xs-2">% Breach</td>
+                            <td class="col-xs-2"># Moat</td>
+                            <td class="col-xs-2"># Ramparts</td>
+                            <td class="col-xs-2"># Drawbridge</td>
+                            <td class="col-xs-2"># Sally Port</td>
+                        </tr>
+                        <tr>
+                            <td class="col-xs-2"># Portcullis</td>
+                            <td class="col-xs-2"># Rock Wall</td>
+                            <td class="col-xs-2"># Rough Terrain</td>
+                            <td class="col-xs-2"># Chival de frise</td>
+                            <td class="col-xs-2"># Low Bar</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.defenses.damaged.Moat/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.defenses.damaged.Ramparts/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.defenses.damaged.Drawbridge/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.defenses.damaged['Sally Port']/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.defenses.damaged.Portcullis/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.defenses.damaged['Rock Wall']/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.defenses.damaged['Rough Terrain']/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.defenses.damaged['Chival de frise']/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.defenses.damaged['Low Bar']/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+            <tab heading="Challenge">
+                <table class="table table-striped table-hover">
+                    <caption>End Game Averages Per Match</caption>
+                    <thead>
+                        <tr>
+                            <td class="col-xs-2"># Scaled</td>
+                            <td class="col-xs-2"># Captured</td>
+                            <td class="col-xs-2"># Breached</td>
+                            <td class="col-xs-2"># Challenged</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.challenge.numScaled/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.challenge.numCaptured/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.challenge.numBreached/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                            <td class="col-xs-2">{{(TeamDataCtrl.teamData.challenge.numChallenged/TeamDataCtrl.teamData.completedMatches).toFixed(2)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+        </tabset>
+    </div>
+
+    <div class="row">
+        <hr>
+    </div>
+
+    <!--
+  <div class="row">
+    <button type="button" class="btn btn-primary col-xs-12" ng-click="TeamDataCtrl.createMatch()">
+      Add Match
+    </button>
+  </div>
+-->
+    <div class="row">
+        <table class="table table-striped table-hover">
+            <caption>Team Matches</caption>
+            <thead>
+                <tr>
+                    <td class="col-xs-2">#</td>
+                    <td class="col-xs-2">Score</td>
+                    <td class="col-xs-2">Auto</td>
+                    <td class="col-xs-2">Boulder</td>
+                    <td class="col-xs-2">Defenses</td>
+                    <td class="col-xs-2">Castle</td>
+                    <td class="col-xs-2">Tower</td>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat="match in TeamDataCtrl.teamData.matches | orderBy: 'id'" ng-click="TeamDataCtrl.modifyMatch(match.id)">
+                    <td class="col-xs-2">{{match.id}}</td>
+                    <td class="col-xs-2">{{match.score.toFixed(2)}}</td>
+                    <td class="col-xs-2">{{match.autonomousScore.toFixed(2)}}</td>
+                    <td class="col-xs-2">{{match.boulderScore.toFixed(2)}}</td>
+                    <td class="col-xs-2">{{match.defenseScore.toFixed(2)}}</td>
+                    <td class="col-xs-2">{{match.castleScore.toFixed(2)}}</td>
+                    <td class="col-xs-2">{{match.towerScore.toFixed(2)}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- custom navbar for options -->
+<!--
+<nav class="navbar navbar-default" role="navigation">
+    <ul class="nav navbar-nav">
+      <li class="active"><a>Overall</a></li>
+      <li><a>Auto</a></li>
+      <li><a>Stack</a></li>
+      <li><a>Cap</a></li>
+      <li><a>Burglar</a></li>
+      <li><a>Ramp</a></li>
+    </ul>
+</nav>-->

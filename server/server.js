@@ -8,6 +8,7 @@ var app = express();
 var UserModel = require('./models/User');
 var TeamModel = require("./models/Team");
 var RecycleRushModel = require("./models/RecycleRush");
+var StrongholdModel = require("./models/Stronghold");
 var MatchModel = require("./models/Match");
 var ChairmansModel = require("./models/Chairmans");
 
@@ -16,6 +17,7 @@ var User = mongoose.model('User');
 var Team = mongoose.model('Team');
 var Match = mongoose.model('Match');
 var TeamData = mongoose.model('RecycleRushTeamData');
+var TeamDataStronghold = mongoose.model('StrongholdTeamData');
 var Chairmans = mongoose.model('Chairmans');
 
 //auth
@@ -32,12 +34,16 @@ mongoose.connection.db.dropDatabase();
 
 //    app.use(express.logger());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set("view options", {layout: false});
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.set("view options", {
+    layout: false
+});
 app.use(express.static(__dirname + '/../public'));
 app.use(passport.initialize());
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
     res.sendFile('/public/index.html');
 });
 
@@ -46,7 +52,10 @@ console.log('Express server started');
 
 var parse = require('csv-parse');
 
-var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+var auth = jwt({
+    secret: 'SECRET',
+    userProperty: 'payload'
+});
 
 var UserRoutes = require("./routes/UserRoutes");
 var UserRouter = new UserRoutes(app, auth);
@@ -63,29 +72,36 @@ dataLoader.userImport('config/Users.xlsx');
 var TeamRoutes = require("./routes/TeamRoutes");
 var teamRouter = new TeamRoutes(app, auth);
 
-Team.remove({}, function(err) { 
-  console.log('Teams removed');
+Team.remove({}, function (err) {
+    console.log('Teams removed');
 });
 
 var MatchRoutes = require("./routes/MatchRoutes");
 var matchRouter = new MatchRoutes(app, auth);
-Match.remove({}, function(err) {
-  console.log('Matches removed');
-	dataLoader.matchImport('config/Matches.xlsx','xlsx');
+Match.remove({}, function (err) {
+    console.log('Matches removed');
+    dataLoader.matchImport('config/Matches.xlsx', 'xlsx', 'stronghold');
 });
 
-var TeamDataRoutes = require("./routes/RecycleRushRoutes");
-var teamDataRouter = new TeamDataRoutes(app, auth);
+var TeamDataRoutes = require("./routes/TeamDataRoutes");
+var teamDataRouter = new TeamDataRoutes(app, TeamData, auth);
 
-TeamData.remove({}, function(err) { 
-  console.log('RecycleRush Data removed');
-	dataLoader.simboticsDataImport('config/Team_1114_2015_Championship_Scouting_Database-2.xlsx', 'Carson');
+var teamDataStrongholdRouter = new TeamDataRoutes(app, TeamDataStronghold, auth);
+
+TeamData.remove({}, function (err) {
+    console.log('RecycleRush Data removed');
+    dataLoader.simboticsDataImport('config/Team_1114_2015_Championship_Scouting_Database-2.xlsx', 'Carson');
 });
+
+//TeamDataStronghold.remove({}, function (err) {
+//    console.log('Stronghold Data removed');
+//    //    dataLoader.simboticsDataImport('config/Team_1114_2015_Championship_Scouting_Database-2.xlsx', 'Carson');
+//});
 
 var ChairmansRoutes = require("./routes/ChairmansRoutes");
 var chairmansRouter = new ChairmansRoutes(app, auth);
 
-Chairmans.remove({}, function(err) {
-	console.log('Chairmans data removed');
-	dataLoader.chairmansImport('config/Chairmans.xlsx',2015);
+Chairmans.remove({}, function (err) {
+    console.log('Chairmans data removed');
+    //	dataLoader.chairmansImport('config/Chairmans.xlsx',2015);
 });

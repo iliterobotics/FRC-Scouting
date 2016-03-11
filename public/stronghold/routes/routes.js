@@ -25,80 +25,80 @@ angular.module('ilite.common').config(function ($routeProvider, $locationProvide
     $routeProvider
     // route for the main page
         .when('/', {
-        templateUrl: 'shared/main/main.html',
+        templateUrl: '/shared/main/main.html',
         controller: 'MainCtrl'
     })
 
     .when('/settings', {
-        templateUrl: 'shared/main/main.html',
+        templateUrl: '/shared/main/main.html',
         controller: 'MainCtrl'
     })
 
     //auth
     .when('/login', {
-        templateUrl: 'shared/auth/login.html',
+        templateUrl: '/shared/auth/login.html',
         controller: 'AuthCtrl'
     })
 
     //		.when('/register', {
-    //        templateUrl : 'shared/auth/register.html',
+    //        templateUrl : '/shared/auth/register.html',
     //        controller  : 'AuthCtrl'
     //    })
 
     // route for the rankings page
     .when('/rankings', {
-        templateUrl: 'components/recyclerush/views/rankings.html',
+        templateUrl: 'components/views/rankings.html',
         controller: 'RankingCtrl'
     })
 
     // route for the rankings page
     .when('/matches', {
-        templateUrl: 'shared/match/matchListing.html',
+        templateUrl: '/shared/match/matchListing.html',
         controller: 'MatchCtrl'
     })
 
     .when('/matches/edit', {
-        templateUrl: 'shared/match/editMatch.html',
+        templateUrl: '/shared/match/editMatch.html',
         controller: 'MatchEditCtrl'
     })
 
     .when('/matches/edit/:id', {
-        templateUrl: 'shared/match/editMatch.html',
+        templateUrl: '/shared/match/editMatch.html',
         controller: 'MatchEditCtrl'
     })
 
     // route for the teams listing page
     .when('/teamsListing', {
-        templateUrl: 'shared/teams/teamsListing.html',
+        templateUrl: '/shared/teams/teamsListing.html',
         controller: 'TeamListingCtrl'
     })
 
     .when('/teamsListing/teamInput/:id', {
-        templateUrl: 'shared/teams/teamInput.html',
+        templateUrl: '/shared/teams/teamInput.html',
         controller: 'TeamInputCtrl'
     })
 
     .when('/teamsListing/teamInput', {
-        templateUrl: 'shared/teams/teamInput.html',
+        templateUrl: '/shared/teams/teamInput.html',
         controller: 'TeamInputCtrl'
     })
 
     // route for the selected team information
     .when('/teams/:teamNumber', {
-        templateUrl: 'components/recyclerush/views/teamData.html',
+        templateUrl: 'components/views/teamData.html',
         controller: 'TeamDataCtrl'
     })
 
     // route for entering match data
     //optional: ?matchNumber=<matchNumber>
     .when('/teams/:teamNumber/editData', {
-        templateUrl: 'components/recyclerush/views/teamMatchData.html',
+        templateUrl: 'components/views/teamMatchData.html',
         controller: 'TeamMatchDataCtrl'
     })
 
     // route for the selected team information
     .when('/chairmansListing', {
-        templateUrl: 'shared/chairmans/chairmansListing.html',
+        templateUrl: '/shared/chairmans/chairmansListing.html',
         controller: 'ChairmansCtrl'
     });
 

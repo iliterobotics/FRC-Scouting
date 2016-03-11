@@ -16,7 +16,6 @@ index.html
 
 
 
-
 assets/styles/css/bootstrap-theme.css
 assets/styles/css/bootstrap-theme.css.map
 assets/styles/css/bootstrap-theme.min.css
@@ -53,14 +52,11 @@ assets/vendor/angularjs/v1.3/angular.min.js
 assets/vendor/angularjs/v1.3/angular.min.js.map
 assets/vendor/ui-bootstrap-tpls-0.12.1.min.js
 
-stronghold/components/controllers/TeamMatchDataCtrl.js
-stronghold/components/services/GameService.js
+recyclerush/components/controllers/TeamMatchDataCtrl.js
 
-stronghold/components/views/teamData.html
-stronghold/components/views/rankings.html
-stronghold/components/views/teamMatchData.html
-stronghold/routes/routes.js
-stronghold/index.html
+recyclerush/components/views/teamData.html
+recyclerush/components/views/rankings.html
+recyclerush/components/views/teamMatchData.html
 
 shared/auth/Auth.js
 shared/auth/login.html

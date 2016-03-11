@@ -1,0 +1,77 @@
+// grab the TeamDataModel model
+var mongoose = require("mongoose");
+
+module.exports = function (app, TeamDataModel, auth) {
+
+    console.log('Creating team data routes for', TeamDataModel.gameId());
+
+    var matchRoutes = this;
+
+    //listing level routes - supports get
+    app.route('/v1/' + TeamDataModel.gameId() + '/matchData').all(auth).get(function (req, res) {
+        // use mongoose to get all team match data in the database
+        TeamDataModel.findSummary(function (err, teamDataEntries) {
+
+            // if there is an error retrieving, send the error. 
+            // nothing after res.send(err) will execute
+            if (err) {
+                res.send(err);
+            }
+
+            //need to bubble this up to summary level
+            res.json(teamDataEntries); // return all teamDataEntries in JSON format
+        });
+    });
+
+    //team-level supports get
+    app.route('/v1/' + TeamDataModel.gameId() + '/matchData/:teamId').all(auth).get(function (req, res) {
+
+        TeamDataModel.findTeamSummary(req.params.teamId, function (err, teamData) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(teamData);
+            }
+        });
+    });
+
+    //team and match level supports get and put/update
+    app.route('/v1/' + TeamDataModel.gameId() + '/matchData/:teamId/:matchId').all(auth).get(function (req, res) {
+
+            TeamDataModel.findTeamMatchData(req.params.teamId, req.params.matchId, function (err, teamData) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.send(teamData);
+                }
+            });
+        })
+        .put(function (req, res) {
+            console.log('received put request for /' + TeamDataModel.gameId() + '/ matchData', req.body._id, req.body.team, req.body.match, JSON.stringify(req.body));
+            TeamDataModel.findByIdAndUpdate(req.body._id, req.body, {
+                upsert: true
+            }, function (err, teamData) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.send(teamData);
+                }
+            });
+        })
+        .post(function (req, res) {
+            var teamData = new TeamDataModel(req.body);
+            teamData._id = (teamData.team * 10000 + teamData.match);
+            console.log('received post request for /' + TeamDataModel.gameId() + '/ matchData', req.body._id, req.body.team, req.body.match, JSON.stringify(req.body));
+            teamData.auther = req.payload.username;
+
+            TeamDataModel.findByIdAndUpdate(teamData._id, teamData, {
+                upsert: true
+            }, function (err, teamData) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.send(teamData);
+                }
+            });
+        });
+};

@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <!--    <base href="/">-->
-    <title>ILITE Scouting</title>
+    <title>ILITE Scouting - Recycle Rush</title>
 
     <!-- bootstrap css -->
-    <link rel="stylesheet" href="assets/styles/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/styles/css/main.css" />
+    <link rel="stylesheet" href="/assets/styles/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/styles/css/main.css" />
 </head>
 
 <body>
@@ -62,41 +62,42 @@
     <div ng-view></div>
 
     <!-- dependencies -->
-    <script type="text/javascript" src="assets/vendor/angularjs/v1.3/angular.min.js"></script>
-    <script type="text/javascript" src="assets/vendor/angularjs/v1.3/angular-route.min.js"></script>
-    <script type="text/javascript" src="assets/vendor/angularjs/v1.3/angular-resource.min.js"></script>
-    <script type="text/javascript" src="assets/vendor/angularjs/v1.3/angular-touch.min.js"></script>
+    <script type="text/javascript" src="/assets/vendor/angularjs/v1.3/angular.min.js"></script>
+    <script type="text/javascript" src="/assets/vendor/angularjs/v1.3/angular-route.min.js"></script>
+    <script type="text/javascript" src="/assets/vendor/angularjs/v1.3/angular-resource.min.js"></script>
+    <script type="text/javascript" src="/assets/vendor/angularjs/v1.3/angular-touch.min.js"></script>
 
-    <script type="text/javascript" src="assets/vendor/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <script type="text/javascript" src="/assets/vendor/ui-bootstrap-tpls-0.12.1.min.js"></script>
 
 
     <!-- app entrance point -->
-    <script type="application/javascript" src="shared/app.js"></script>
+    <script type="application/javascript" src="/shared/app.js"></script>
 
     <!-- offline handler -->
-    <script type="application/javascript" src="shared/offline/OfflineService.js"></script>
+    <script type="application/javascript" src="/shared/offline/OfflineService.js"></script>
 
     <!-- Auth -->
-    <script type="application/javascript" src="shared/auth/Auth.js"></script>
+    <script type="application/javascript" src="/shared/auth/Auth.js"></script>
 
-    <script type="application/javascript" src="shared/main/routes.js"></script>
+    <script type="application/javascript" src="routes/routes.js"></script>
 
     <!-- Services -->
-    <script type="application/javascript" src="shared/teams/TeamService.js"></script>
-    <script type="application/javascript" src="shared/match/MatchService.js"></script>
-    <script type="application/javascript" src="shared/chairmans/ChairmansService.js"></script>
-    <script type="application/javascript" src="shared/teams/TeamMatchDataService.js"></script>
+    <script type="application/javascript" src="/shared/teams/TeamService.js"></script>
+    <script type="application/javascript" src="/shared/match/MatchService.js"></script>
+    <script type="application/javascript" src="/shared/chairmans/ChairmansService.js"></script>
+    <script type="application/javascript" src="/shared/teams/TeamMatchDataService.js"></script>
 
     <!-- Controllers -->
-    <script type="application/javascript" src="shared/main/MainCtrl.js"></script>
-    <script type="application/javascript" src="shared/teams/TeamListingCtrl.js"></script>
-    <script type="application/javascript" src="shared/teams/TeamInputCtrl.js"></script>
-    <script type="application/javascript" src="shared/teams/TeamDataCtrl.js"></script>
-    <script type="application/javascript" src="shared/match/MatchCtrl.js"></script>
-    <script type="application/javascript" src="shared/chairmans/ChairmansCtrl.js"></script>
+    <script type="application/javascript" src="/shared/main/MainCtrl.js"></script>
+    <script type="application/javascript" src="/shared/teams/TeamListingCtrl.js"></script>
+    <script type="application/javascript" src="/shared/teams/TeamInputCtrl.js"></script>
+    <script type="application/javascript" src="/shared/teams/TeamDataCtrl.js"></script>
+    <script type="application/javascript" src="/shared/match/MatchCtrl.js"></script>
+    <script type="application/javascript" src="/shared/chairmans/ChairmansCtrl.js"></script>
 
-    <script type="application/javascript" src="components/recyclerush/controllers/TeamMatchDataCtrl.js"></script>
-    <script type="application/javascript" src="components/recyclerush/controllers/RankingCtrl.js"></script>
+    <script type="application/javascript" src="components/services/GameService.js"></script>
+    <script type="application/javascript" src="components/controllers/TeamMatchDataCtrl.js"></script>
+    <script type="application/javascript" src="/shared/teams/RankingCtrl.js"></script>
 
 </body>
 <footer>

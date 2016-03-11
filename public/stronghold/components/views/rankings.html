@@ -1,0 +1,28 @@
+<table class="table table-striped table-hover">
+    <caption>Rankings</caption>
+    <thead>
+        <tr>
+            <td class="col-xs-1">#</td>
+            <td class="col-xs-2">Team</td>
+            <td class="col-xs-2">Avg</td>
+            <td class="col-xs-2">Auto</td>
+            <td class="col-xs-2">Boulders</td>
+            <td class="col-xs-2">Defenses</td>
+            <td class="col-xs-2">Castle</td>
+            <td class="col-xs-2">Tower</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="teamData in RankingCtrl.teamDataList | orderBy: '-average'" ng-click="RankingCtrl.viewTeam(teamData.team)">
+            <td class="col-xs-1">{{$index+1}}</td>
+            <td class="col-xs-2">{{teamData.team}}</td>
+            <td class="col-xs-2">{{teamData.average.toFixed(2)}}</td>
+            <td class="col-xs-2">{{teamData.autonomous.totalPoints.toFixed(2)}}</td>
+            <td class="col-xs-2">{{teamData.boulders.totalPoints.toFixed(2)}}</td>
+            <td class="col-xs-2">{{teamData.defenses.totalPoints.toFixed(2)}}</td>
+            <td class="col-xs-2">{{teamData.challenge.totalCastlePoints.toFixed(2)}}</td>
+            <td class="col-xs-2">{{teamData.challenge.totalTowerPoints.toFixed(2)}}</td>
+        </tr>
+    </tbody>
+</table>
+<progressbar ng-show="RankingCtrl.teamDataList.length === 0" class="progress-striped active" max="100" value="100"><i>Loading Rankings</i></progressbar>

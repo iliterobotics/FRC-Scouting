@@ -1,0 +1,181 @@
+<div class="container-fluid">
+    <h3>Team {{TeamMatchDataCtrl.matchData.team}} - Match {{TeamMatchDataCtrl.matchData.match}}</h3>
+    <div class="row">
+        <tabset>
+            <tab heading="Auto">
+                <!--
+        <h5>Bot Score</h5>
+        <input class="form-control" />
+-->
+
+                <h5>Bot reaches defense</h5>
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.autonomous.isReachDefense">
+                    <option>true</option>
+                    <option>false</option>
+                </select>
+
+                <h5># High Goal</h5>
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.autonomous.numBouldersHigh">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+
+                <h5># Low Goal</h5>
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.autonomous.numBouldersLow">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+                <h5># Defenses</h5>
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.autonomous.numDefenses">
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </tab>
+            <tab heading="Boulder">
+
+                <table class="table table-striped table-hover">
+                    <caption>Boulders</caption>
+                    <thead>
+                        <tr>
+                            <td class="col-xs-1">#</td>
+                            <td class="col-xs-2">Type</td>
+                            <td class="col-xs-3">Location</td>
+                            <td class="col-xs-3">Distance</td>
+                            <td class="col-xs-3">Scored?</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="boulder in TeamMatchDataCtrl.matchData.boulders" ng-click="TeamMatchDataCtrl.selectBoulder($index)">
+                            <td class="col-xs-1">{{$index}}</td>
+                            <td class="col-xs-2">
+                                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.boulders[$index].shotType">
+                                    <option>High</option>
+                                    <option>Low</option>
+                                </select>
+                            </td>
+                            <td class="col-xs-2">
+                                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.boulders[$index].location">
+                                    <option>Left</option>
+                                    <option>Right</option>
+                                    <option>Center</option>
+                                </select>
+                            </td>
+                            <td class="col-xs-2">
+                                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.boulders[$index].distance">
+                                    <option>Near</option>
+                                    <option>Mid</option>
+                                    <option>Far</option>
+                                </select>
+                            </td>
+                            <td class="col-xs-2">
+                                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.boulders[$index].madeShot">
+                                    <option>true</option>
+                                    <option>false</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="button" class="btn btn-primary col-xs-6" ng-click="TeamMatchDataCtrl.addBoulder()">
+                    Add Boulder
+                </button>
+
+                <button type="button" class="btn btn-danger col-xs-6" ng-click="TeamMatchDataCtrl.deleteBoulder(TeamMatchDataCtrl.selectedBoulder)">
+                    Delete Boulder {{TeamMatchDataCtrl.selectedBoulder}}
+                </button>
+
+            </tab>
+            <tab heading="Defenses">
+                <table class="table table-striped table-hover">
+                    <caption>Defenses</caption>
+                    <thead>
+                        <tr>
+                            <td class="col-xs-1">#</td>
+                            <td class="col-xs-8">Defense Type</td>
+                            <td class="col-xs-3">Successful</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="defense in TeamMatchDataCtrl.matchData.defenses" ng-click="TeamMatchDataCtrl.selectDefense($index)">
+                            <td class="col-xs-1">{{$index}}</td>
+                            <td class="col-xs-4">
+                                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.defenses[$index].defenseType">
+                                    <option>Moat</option>
+                                    <option>Ramparts</option>
+                                    <option>Drawbridge</option>
+                                    <option>Sally Port</option>
+                                    <option>Portcullis</option>
+                                    <option>Rock Wall</option>
+                                    <option>Rough Terrain</option>
+                                    <option>Chival de frise</option>
+                                    <option>Low Bar</option>
+                                </select>
+                            </td>
+                            <td class="col-xs-4">
+                                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.defenses[$index].isSuccess">
+                                    <option>true</option>
+                                    <option>false</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="button" class="btn btn-primary col-xs-6" ng-click="TeamMatchDataCtrl.addDefense()">
+                    Add Defense
+                </button>
+
+                <button type="button" class="btn btn-danger col-xs-6" ng-click="TeamMatchDataCtrl.deleteCap(TeamMatchDataCtrl.selectedDefense)">
+                    Delete Defense {{TeamMatchDataCtrl.selectedDefense}}
+                </button>
+            </tab>
+            <tab heading="Castle/Tower">
+
+                <h5>Breach</h5>
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.challenge.isBreached">
+                    <option>true</option>
+                    <option>false</option>
+                </select>
+
+                <h5>Capture</h5>
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.challenge.isCaptured">
+                    <option>true</option>
+                    <option>false</option>
+                </select>
+
+                <h5>Scaled</h5>
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.challenge.isScaled">
+                    <option>true</option>
+                    <option>false</option>
+                </select>
+
+                <h5>Challenged</h5>
+                <select class="form-control" ng-model="TeamMatchDataCtrl.matchData.challenge.isChallenged">
+                    <option>true</option>
+                    <option>false</option>
+                </select>
+
+            </tab>
+            <tab heading="Notes">
+                <h5>Enter Additional Notes Here</h5>
+                <textarea class="form-control" ng-model="TeamMatchDataCtrl.matchData.notes">
+                </textarea>
+            </tab>
+        </tabset>
+    </div>
+    <div class="row">
+        <hr>
+    </div>
+    <div class="row">
+        <button type="button" class="btn btn-success col-xs-12" ng-click="TeamMatchDataCtrl.saveMatch()">
+            Save Match
+        </button>
+    </div>
+</div>

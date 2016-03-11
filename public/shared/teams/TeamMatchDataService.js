@@ -87,13 +87,18 @@
 //  }
 //}
 
-angular.module('ilite.common').factory('TeamMatchData', ['$resource', function($resource) {
+angular.module('ilite.common').factory('TeamMatchData', ['$resource', function ($resource) {
 
-  //team #
-  //team name
-  return $resource('/v1/recyclerush/matchData/:teamId/:matchId', { teamId: '@team', matchId: '@match'},
-               {
-                 update: { method: 'PUT' }
-               });    
+    //team #
+    //team name
+    return $resource('/v1/:gameId/matchData/:teamId/:matchId', {
+        gameId: '@game',
+        teamId: '@team',
+        matchId: '@match'
+    }, {
+        update: {
+            method: 'PUT'
+        }
+    });
 
 }]);
